@@ -3,7 +3,7 @@ Name: CantReachMe
 Depends: mobilesubstrate
 Version: 1.0.0
 Architecture: iphoneos-arm
-Description: Disable Reachability Gesture
+Description: Show notification center when invoking reachability gesture
 Maintainer: woodfairy
 Author: woodfairy
 Section: Tweaks
