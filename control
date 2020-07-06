@@ -1,0 +1,9 @@
+Package: 0xcc.woodfairy.cantreachme
+Name: CantReachMe
+Depends: mobilesubstrate
+Version: 1.0.0
+Architecture: iphoneos-arm
+Description: Disable Reachability Gesture
+Maintainer: woodfairy
+Author: woodfairy
+Section: Tweaks
