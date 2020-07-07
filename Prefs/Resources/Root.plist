@@ -22,10 +22,10 @@
 		<dict>
 			<key>cell</key>
 			<string>PSButtonCell</string>
-			<key>label</label>
-			<string>GitHub</string>
 			<key>action</key>
-			<string>wdfOpenGithub</string>
+			<string>openGithub</string>
+			<key>label</key>
+			<string>GitHub</string>
 		</dict>
 
 	</array>
