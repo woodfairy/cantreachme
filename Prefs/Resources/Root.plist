@@ -65,7 +65,7 @@
 			<key>action</key>
 			<string>openTwitter</string>
 			<key>label</key>
-			<string>My twitter @woodfairyd</string>
+			<string>My Twitter @woodfairyd</string>
 		</dict>
 		<dict>
 			<key>cell</key>
@@ -80,7 +80,6 @@
 			<string>openLittenTwitter</string>
 			<key>label</key>
 			<string>@Litteeen</string>
-		</dict>
 		</dict>
 
 	</array>
