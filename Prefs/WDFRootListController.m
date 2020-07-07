@@ -152,4 +152,18 @@
 	completionHandler:nil];
 }
 
+-(void)openTwitter {
+	[[UIApplication sharedApplication]
+	openURL: [NSURL URLWithString:@"https://twitter.com/woodfairyd"]
+	options: @{}
+	completionHandler:nil];
+}
+
+-(void)openLittenTwitter {
+	[[UIApplication sharedApplication]
+	openURL: [NSURL URLWithString:@"https://twitter.com/Litteeen"]
+	options: @{}
+	completionHandler:nil];
+}
+
 @end

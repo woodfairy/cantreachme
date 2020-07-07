@@ -61,11 +61,27 @@
 		</dict>
 		<dict>
 			<key>cell</key>
+			<string>PSButtonCell</string>
+			<key>action</key>
+			<string>openTwitter</string>
+			<key>label</key>
+			<string>My twitter @woodfairyd</string>
+		</dict>
+		<dict>
+			<key>cell</key>
 			<string>PSGroupCell</string>
 			<key>label</key>
 			<string>Credits</string>
 		</dict>
-
+		<dict>
+			<key>cell</key>
+			<string>PSButtonCell</string>
+			<key>action</key>
+			<string>openLittenTwitter</string>
+			<key>label</key>
+			<string>@Litteeen</string>
+		</dict>
+		</dict>
 
 	</array>
 	<key>title</key>
