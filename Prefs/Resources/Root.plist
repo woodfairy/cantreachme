@@ -49,6 +49,14 @@
 		</dict>
 		<dict>
 			<key>cell</key>
+			<string>PSButtonCell</string>
+			<key>label</label>
+			<string>GitHub</string>
+			<key>action</key>
+			<string>wdfOpenGitHub</string>
+		</dict>
+		<dict>
+			<key>cell</key>
 			<string>PSGroupCell</string>
 			<key>label</key>
 			<string>Credits</string>
