@@ -20,10 +20,16 @@ static NSString *wdfAction;
 %hook SBReachabilityManager
 -(void)_activateReachability:(id)arg1 {
     [self wdfPerformReachabilityAction];
+    if(!wdfTweakEnabled) {
+        %orig;
+    }
 }
 
 -(void)toggleReachability {
     [self wdfPerformReachabilityAction];
+    if(!wdfTweakEnabled) {
+        %orig;
+    }
 }
 
 %new
