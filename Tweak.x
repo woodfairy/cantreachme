@@ -3,19 +3,24 @@
 -(void)setCoverSheetPresented:(BOOL)arg1 animated:(BOOL)arg2 withCompletion:(id)arg3;
 @end
 
-@interface SBLockScreenViewControllerBase : UIViewController
+@interface SBLockScreenViewController : UIViewController
 @end
 
 %hook SBReachabilityManager
 -(void)_activateReachability:(id)arg1 {
-    [[%c(SBCoverSheetPresentationManager) sharedInstance] setCoverSheetPresented:YES animated:YES withCompletion:nil];
+    NSDictionary *bundleDefaults = [[NSUserDefaults standardUserDefaults]
+    persistentDomainForName:@"0xcc.woodfairy.cantreachme"];
+    id isEnabled = [bundleDefaults valueForKey:@"Enabled"];
+    if([isEnabled isEqual:@1]) {
+    	[[%c(SBCoverSheetPresentationManager) sharedInstance] setCoverSheetPresented:YES animated:YES withCompletion:nil];
+    }
 }
 
 -(void)toggleReachability {
     NSDictionary *bundleDefaults = [[NSUserDefaults standardUserDefaults]
     persistentDomainForName:@"0xcc.woodfairy.cantreachme"];
     id isEnabled = [bundleDefaults valueForKey:@"Enabled"];
-    if([isEnabled isEqual:@0]) {
+    if([isEnabled isEqual:@1]) {
     	[[%c(SBCoverSheetPresentationManager) sharedInstance] setCoverSheetPresented:YES animated:YES withCompletion:nil];
     }
 }
@@ -23,12 +28,12 @@
 
 %end
 
-%hook SBLockScreenViewControllerBase
+%hook SBLockScreenViewController
 
 -(void)viewWillAppear:(BOOL)arg1 {
     %orig;
-    UIView *statusView = [[UIView alloc] initWithFrame:GCRectMake(0, 0, 250, 250)];
-    [statusView setBackgroundColor: [UIColow blackColor]];
+    UIView *statusView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 250, 250)];
+    [statusView setBackgroundColor: [UIColor blackColor]];
     
     UILabel *statusLabel = [[UILabel alloc] initWithFrame:statusView.frame];
     [statusLabel setTextColor:[UIColor whiteColor]];
