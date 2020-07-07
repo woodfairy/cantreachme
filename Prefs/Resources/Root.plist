@@ -30,6 +30,8 @@
 			<string>crm_action</string>
 			<key>label</key>
 			<string>Action</string>
+			<key>PostNotification</key>
+			<string>0xcc.woodfairy.cantreachme/ReloadPrefs</string>
 			<key>validTitles</key>
 			<array>
 				<string>Notification Center</string>
