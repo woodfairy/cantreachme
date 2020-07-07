@@ -20,5 +20,5 @@
 
 -(void)respring;
 -(void)respringUtil;
-
+-(void)wdf_openGithub;
 @end
