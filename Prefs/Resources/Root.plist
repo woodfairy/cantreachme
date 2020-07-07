@@ -53,7 +53,7 @@
 			<key>label</label>
 			<string>GitHub</string>
 			<key>action</key>
-			<string>wdfOpenGitHub</string>
+			<string>wdfOpenGithub</string>
 		</dict>
 		<dict>
 			<key>cell</key>
