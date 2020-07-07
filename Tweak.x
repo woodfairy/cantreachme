@@ -12,7 +12,10 @@
     persistentDomainForName:@"0xcc.woodfairy.cantreachme"];
     id isEnabled = [bundleDefaults valueForKey:@"Enabled"];
     if([isEnabled isEqual:@1]) {
-    	[[%c(SBCoverSheetPresentationManager) sharedInstance] setCoverSheetPresented:YES animated:YES withCompletion:nil];
+	id action = [bundleDefaults valueForKey:@"crm_action"];
+	if([action isEqual:@"coversheet"]) {
+		[[%c(SBCoverSheetPresentationManager) sharedInstance] setCoverSheetPresented:YES animated:YES withCompletion:nil];
+	}
     }
 }
 
@@ -21,11 +24,12 @@
     persistentDomainForName:@"0xcc.woodfairy.cantreachme"];
     id isEnabled = [bundleDefaults valueForKey:@"Enabled"];
     if([isEnabled isEqual:@1]) {
-    	[[%c(SBCoverSheetPresentationManager) sharedInstance] setCoverSheetPresented:YES animated:YES withCompletion:nil];
+	id action = [bundleDefaults valueForKey:@"crm_action"];
+	if([action isEqual:@"coversheet"]) {
+		[[%c(SBCoverSheetPresentationManager) sharedInstance] setCoverSheetPresented:YES animated:YES withCompletion:nil];
+	}
     }
 }
-
-
 %end
 
 %hook SBLockScreenViewController
