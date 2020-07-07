@@ -8,3 +8,6 @@ CantReachMe_FILES = Tweak.x
 CantReachMe_CFLAGS = -fobjc-arc
 ARCHS = arm64 arm64e
 include $(THEOS_MAKE_PATH)/tweak.mk
+SUBPROJECTS += prefs
+include $(THEOS_MAKE_PATH)/aggregate.mk
+
