@@ -41,6 +41,24 @@
 			<key>cell</key>
 			<string>PSGroupCell</string>
 			<key>label</key>
+			<string>Check out</string>
+			<key>footerText</key>
+			<string>This tweak is entirely written in Vim!</string>
+			<key>isStaticText</key>
+			<true/>
+		</dict>
+		<dict>
+			<key>cell</key>
+			<string>PSButtonCell</string>
+			<key>label</label>
+			<string>GitHub</string>
+			<key>action</key>
+			<string>wdf_openGitHub</string>
+		</dict>
+		<dict>
+			<key>cell</key>
+			<string>PSGroupCell</string>
+			<key>label</key>
 			<string>Credits</string>
 		</dict>
 
