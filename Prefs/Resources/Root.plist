@@ -23,7 +23,7 @@
 			<key>cell</key>
 			<string>PSLinkListCell</string>
 			<key>defaults</key>
-			<string>sh.litten.preferences</string>
+			<string>0xcc.woodfairy.cantreachme</string>
 			<key>detail</key>
 			<string>PSListItemsController</string>
 			<key>key</key>
