@@ -145,7 +145,7 @@
     [t launch];
 }
 
--(void)wdfOpenGithub {
+-(void)openGithub {
 	[[UIApplication sharedApplication]
 	openURL: [NSURL URLWithString:@"https://github.com/woodfairy/cantreachme"]
 	options: @{}
