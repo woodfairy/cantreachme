@@ -11,17 +11,23 @@ static NSString *wdfAction;
 +(void)presentAnimated:(BOOL)arg1;
 @end
 
+@interface SBReachabilityManager
+-(void)_activateReachability:(id)arg1;
+-(void)toggleReachability;
+-(void)wdfPerformReachabilityAction;
+@end
+
 %hook SBReachabilityManager
 -(void)_activateReachability:(id)arg1 {
-    [self performReachabilityAction];
+    [self wdfPerformReachabilityAction];
 }
 
 -(void)toggleReachability {
-    [self performReachabilityAction];
+    [self wdfPerformReachabilityAction];
 }
 
 %new
--(void)performReachabilityAction {
+-(void)wdfPerformReachabilityAction {
     if(wdfTweakEnabled) {
 	if([wdfAction isEqual:@"coversheet"]) {
 		[[%c(SBCoverSheetPresentationManager) sharedInstance] setCoverSheetPresented:YES animated:YES withCompletion:nil];
