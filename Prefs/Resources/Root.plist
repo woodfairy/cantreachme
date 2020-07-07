@@ -19,6 +19,30 @@
 			<key>PostNotification</key>
 			<string>sh.litten.preferences/ReloadPrefs</string>
 		</dict>
+		<dict>
+			<key>cell</key>
+			<string>PSLinkListCell</string>
+			<key>key</key>
+			<string>crm_action</string>
+			<key>label</key>
+			<string>Action</string>
+			<key>validTitles</key>
+			<array>
+				<string>Notification Center</string>
+				<string>Control Center</string>
+			</array>
+			<key>validValues</key>
+			<array>
+				<string>coversheet</string>
+				<string>controlcenter</string>
+			</array>
+		</dict>
+		<dict>
+			<key>cell</key>
+			<string>PSGroupCell</string>
+			<key>label</key>
+			<string>Credits</string>
+		</dict>
 
 	</array>
 	<key>title</key>
