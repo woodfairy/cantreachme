@@ -13,11 +13,13 @@ static NSString *wdfAction;
 
 %hook SBReachabilityManager
 -(void)_activateReachability:(id)arg1 {
-    self.performReachabilityAction();
+    %orig;
+    [self performReachabilityAction];
 }
 
 -(void)toggleReachability {
-    self.performReachabilityAction();
+    %orig;
+    [self performReachabilityAction];
 }
 
 %new
@@ -33,7 +35,7 @@ static NSString *wdfAction;
 
 %end
 
-void wdfReloadPrefs {
+void wdfReloadPrefs() {
     NSDictionary *bundleDefaults = [[NSUserDefaults standardUserDefaults]
     persistentDomainForName:@"0xcc.woodfairy.cantreachme"];
     
