@@ -21,4 +21,6 @@
 -(void)respring;
 -(void)respringUtil;
 -(void)openGithub;
+-(void)openTwitter;
+-(void)openLittenTwitter;
 @end
