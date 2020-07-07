@@ -11,4 +11,12 @@
 -(void)toggleReachability {
     [[%c(SBCoverSheetPresentationManager) sharedInstance] setCoverSheetPresented:YES animated:YES withCompletion:nil];
 }
+
+-(NSDictionary)getPrefs() {
+	NSDictionary *bundleDefaults = [[NSUSerDefaults standardUserDefaults]
+	peristentForDomainName:@"0xcc.woodfairy.cantreachme"];
+	
+	return *bundleDefaults;
+}
+
 %end
