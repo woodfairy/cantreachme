@@ -21,45 +21,11 @@
 		</dict>
 		<dict>
 			<key>cell</key>
-			<string>PSLinkListCell</string>
-			<key>key</key>
-			<string>crm_action</string>
-			<key>label</key>
-			<string>Action</string>
-			<key>validTitles</key>
-			<array>
-				<string>Notification Center</string>
-				<string>Control Center</string>
-			</array>
-			<key>validValues</key>
-			<array>
-				<string>coversheet</string>
-				<string>controlcenter</string>
-			</array>
-		</dict>
-		<dict>
-			<key>cell</key>
-			<string>PSGroupCell</string>
-			<key>label</key>
-			<string>Check out</string>
-			<key>footerText</key>
-			<string>This tweak is entirely written in Vim!</string>
-			<key>isStaticText</key>
-			<true/>
-		</dict>
-		<dict>
-			<key>cell</key>
 			<string>PSButtonCell</string>
 			<key>label</label>
 			<string>GitHub</string>
 			<key>action</key>
 			<string>wdfOpenGithub</string>
-		</dict>
-		<dict>
-			<key>cell</key>
-			<string>PSGroupCell</string>
-			<key>label</key>
-			<string>Credits</string>
 		</dict>
 
 	</array>
