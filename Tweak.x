@@ -8,7 +8,20 @@
 +(void)presentAnimated:(BOOL)arg1;
 @end
 
--(void) wCantReachMe() {
+%hook SBReachabilityManager
+-(void)_activateReachability:(id)arg1 {
+    NSDictionary *bundleDefaults = [[NSUserDefaults standardUserDefaults]
+    persistentDomainForName:@"0xcc.woodfairy.cantreachme"];
+    id isEnabled = [bundleDefaults valueForKey:@"Enabled"];
+    if([isEnabled isEqual:@1]) {
+	id action = [bundleDefaults valueForKey:@"crm_action"];
+	if([action isEqual:@"coversheet"]) {
+		[[%c(SBCoverSheetPresentationManager) sharedInstance] setCoverSheetPresented:YES animated:YES withCompletion:nil];
+	}
+    }
+}
+
+-(void)toggleReachability {
     NSDictionary *bundleDefaults = [[NSUserDefaults standardUserDefaults]
     persistentDomainForName:@"0xcc.woodfairy.cantreachme"];
     id isEnabled = [bundleDefaults valueForKey:@"Enabled"];
@@ -20,15 +33,6 @@
 		[[%c(SBControlCenterController) sharedInstance] presentAnimated:YES];
 	}
     }
-}
-
-%hook SBReachabilityManager
--(void)_activateReachability:(id)arg1 {
-    cantReachMe();
-}
-
--(void)toggleReachability {
-    cantReachMe();
 }
 %end
 
