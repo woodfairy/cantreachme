@@ -22,6 +22,10 @@
 		<dict>
 			<key>cell</key>
 			<string>PSLinkListCell</string>
+			<key>defaults</key>
+			<string>sh.litten.preferences</string>
+			<key>detail</key>
+			<string>PSListItemsController</string>
 			<key>key</key>
 			<string>crm_action</string>
 			<key>label</key>
