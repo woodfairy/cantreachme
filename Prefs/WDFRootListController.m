@@ -148,8 +148,8 @@
 -(void)wdf_openGithub {
 	[[UIApplication sharedApplication]
 	openURL: [NSURL URLWithString:@"https://github.com/woodfairy/cantreachme"]
-	options: @{}]
-	]
+	options: @{}
+	completionHandler:nil];
 }
 
 @end
