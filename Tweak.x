@@ -13,6 +13,7 @@ void wdfTakeScreenshot() {
     });
 }
 
+%group CantReachMeSB
 %hook SpringBoard
 -(void)applicationDidFinishLaunching:(id)arg1 {
     %orig;
@@ -21,7 +22,9 @@ void wdfTakeScreenshot() {
     return;
 }
 %end
+%end
 
+%group CantReachMe
 %hook SBReachabilityManager
 -(void)_activateReachability:(id)arg1 {
     [self wdfPerformReachabilityAction];
@@ -52,6 +55,7 @@ void wdfTakeScreenshot() {
     }
 }
 %end
+%end
 
 void wdfReloadPrefs() {
     NSDictionary *bundleDefaults = [[NSUserDefaults standardUserDefaults]
@@ -64,7 +68,39 @@ void wdfReloadPrefs() {
 }
 
 %ctor {
+    NSArray *blacklist = @[
+        @"backboardd",
+        @"duetexpertd",
+        @"lsd",
+        @"nsurlsessiond",
+        @"assertiond",
+        @"ScreenshotServicesService",
+        @"com.apple.datamigrator",
+        @"CircleJoinRequested",
+        @"nanotimekitcompaniond",
+        @"ReportCrash",
+        @"ptpd"
+    ];
+
+    NSString *processName = [NSProcessInfo processInfo].processName;
+
+    for (NSString *process in blacklist) {
+        if ([process isEqualToString:processName]) {
+            return;
+        }
+    }
+
+    isSpringboard = [@"SpringBoard" isEqualToString:processName];
+
+    if (isSpringboard) {
+        CFNotificationCenterAddObserver(CFNotificationCenterGetDarwinNotifyCenter(), NULL, (CFNotificationCallback)takeScreenshot, (CFStringRef)@"0xcc.woodfairy.cantreachme/Screenshot", NULL, (CFNotificationSuspensionBehavior)kNilOptions);
+        %init(CantReachMeSB);
+    }
+
+
     wdfReloadPrefs();
     CFNotificationCenterAddObserver(CFNotificationCenterGetDarwinNotifyCenter(), NULL, wdfReloadPrefs, CFSTR("0xcc.woodfairy.cantreachme/ReloadPrefs"), NULL, CFNotificationSuspensionBehaviorCoalesce);
+
+    %init(CantReachMe)
 }
 
