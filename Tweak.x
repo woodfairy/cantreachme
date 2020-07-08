@@ -3,9 +3,9 @@
 static bool wdfTweakEnabled;
 static NSString *wdfAction;
 
-BOOL runScreenshot = YES;
 BOOL isSpringboard;
-SpringBoard *sb = nil;
+BOOL throttleScreenshot = YES;
+SpringBoard         *sb = nil;
 
 
 void wdfTakeScreenshot() {
@@ -21,6 +21,7 @@ void wdfTakeScreenshot() {
 }
 
 %group CantReachMeSB
+
 %hook SpringBoard
 -(void)applicationDidFinishLaunching:(id)arg1 {
     %orig;
@@ -29,9 +30,11 @@ void wdfTakeScreenshot() {
     return;
 }
 %end
-%end
+
+%end // group CantReachMeSB
 
 %group CantReachMe
+
 %hook SBReachabilityManager
 -(void)_activateReachability:(id)arg1 {
     NSLog(@"_activateReachability");
@@ -58,23 +61,19 @@ void wdfTakeScreenshot() {
 	} else if ([wdfAction isEqual:@"controlcenter"]) {
 		[[%c(SBControlCenterController) sharedInstance] presentAnimated:YES];
 	} else if ([wdfAction isEqual:@"screenshot"]) {
-                //[[%c(SBScreenshotManager) sharedInstance] saveScreenshotsWithCompletion:nil];
-                //wdfTakeScreenshot();
                 CFNotificationCenterPostNotification(CFNotificationCenterGetDarwinNotifyCenter(), (CFStringRef)@"0xcc.woodfairy.cantreachme/Screenshot", nil, nil, true);
         }
     }
 }
 %end
-%end
+
+%end // group CantReachMe
 
 void wdfReloadPrefs() {
-    NSDictionary *bundleDefaults = [[NSUserDefaults standardUserDefaults]
-    persistentDomainForName:@"0xcc.woodfairy.cantreachme"];
-    
-    id isEnabled    = [bundleDefaults valueForKey:@"Enabled"];
-    
-    wdfTweakEnabled = isEnabled ? [isEnabled boolValue] : YES;
-    wdfAction       = [bundleDefaults valueForKey:@"crm_action"] ?: @"coversheet";
+    NSDictionary *bundleDefaults = [[NSUserDefaults standardUserDefaults] persistentDomainForName:@"0xcc.woodfairy.cantreachme"];
+    id isEnabled                 = [bundleDefaults valueForKey:@"Enabled"];
+    wdfTweakEnabled              = isEnabled ? [isEnabled boolValue] : YES;
+    wdfAction                    = [bundleDefaults valueForKey:@"crm_action"] ?: @"coversheet";
 }
 
 %ctor {
@@ -102,17 +101,18 @@ void wdfReloadPrefs() {
 
     isSpringboard = [@"SpringBoard" isEqualToString:processName];
 
+    // I have taken this code from Nepetas SwipeShot
     // Someone smarter than me invented this.
     // https://www.reddit.com/r/jailbreak/comments/4yz5v5/questionremote_messages_not_enabling/d6rlh88/
     bool shouldLoad = NO;
     NSArray *args = [[NSClassFromString(@"NSProcessInfo") processInfo] arguments];
     NSUInteger count = args.count;
     if (count != 0) {
-        NSString *executablePath = args[0];
+        NSString *executablePath  = args[0];
         if (executablePath) {
             NSString *processName = [executablePath lastPathComponent];
-            BOOL isApplication = [executablePath rangeOfString:@"/Application/"].location != NSNotFound || [executablePath rangeOfString:@"/Applications/"].location != NSNotFound;
-            BOOL isFileProvider = [[processName lowercaseString] rangeOfString:@"fileprovider"].location != NSNotFound;
+            BOOL isApplication    = [executablePath rangeOfString:@"/Application/"].location != NSNotFound || [executablePath rangeOfString:@"/Applications/"].location != NSNotFound;
+            BOOL isFileProvider   = [[processName lowercaseString] rangeOfString:@"fileprovider"].location != NSNotFound;
             BOOL skip = [processName isEqualToString:@"AdSheet"]
                         || [processName isEqualToString:@"CoreAuthUI"]
                         || [processName isEqualToString:@"InCallService"]
@@ -130,7 +130,6 @@ void wdfReloadPrefs() {
         CFNotificationCenterAddObserver(CFNotificationCenterGetDarwinNotifyCenter(), NULL, (CFNotificationCallback)wdfTakeScreenshot, (CFStringRef)@"0xcc.woodfairy.cantreachme/Screenshot", NULL, (CFNotificationSuspensionBehavior)kNilOptions);
         %init(CantReachMeSB);
     }
-
 
     wdfReloadPrefs();
     CFNotificationCenterAddObserver(CFNotificationCenterGetDarwinNotifyCenter(), NULL, wdfReloadPrefs, CFSTR("0xcc.woodfairy.cantreachme/ReloadPrefs"), NULL, CFNotificationSuspensionBehaviorCoalesce);
