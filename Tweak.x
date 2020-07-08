@@ -24,15 +24,23 @@ BOOL Springboard *sb = nil;
 -(void)saveScreenshotsWithCompletion:(/*^block*/id)arg1;
 @end
 
-%hook SpringBoard
+@interface SpringBoard
+-(void)takeScreenshot;
+-(void)takeScreenshotAndEdit:(BOOL)arg1;
+@end
 
+void wdfTakeScreenshot() {
+    dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITIY_DEFAULT, 0), ^{
+        [sb takeScreenshot];
+    });
+}
+
+%hook SpringBoard
 -(void)applicationDidFinishLaunching:(id)arg1 {
     %orig;
     sb = self;
     return;
 }
-
-
 %end
 
 %hook SBReachabilityManager
@@ -58,16 +66,12 @@ BOOL Springboard *sb = nil;
 	} else if ([wdfAction isEqual:@"controlcenter"]) {
 		[[%c(SBControlCenterController) sharedInstance] presentAnimated:YES];
 	} else if ([wdfAction isEqual:@"screenshot"]) {
-                [[%c(SBScreenshotManager) sharedInstance] saveScreenshotsWithCompletion:nil];
+                //[[%c(SBScreenshotManager) sharedInstance] saveScreenshotsWithCompletion:nil];
+                wdfTakeScreenshot()
         }
     }
 }
 %end
-void wdfTakeScreenshot() {
-    dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITIY_DEFAULT, 0), ^{
-        [sb takeScreenshot];
-    });
-}
 
 void wdfReloadPrefs() {
     NSDictionary *bundleDefaults = [[NSUserDefaults standardUserDefaults]
