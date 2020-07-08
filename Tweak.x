@@ -3,11 +3,11 @@
 static bool wdfTweakEnabled;
 static NSString *wdfAction;
 
-BOOL Springboard *sb = nil;
+SpringBoard *sb = nil;
 
 
 void wdfTakeScreenshot() {
-    dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITIY_DEFAULT, 0), ^{
+    dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         [sb takeScreenshot];
     });
 }
@@ -44,7 +44,7 @@ void wdfTakeScreenshot() {
 		[[%c(SBControlCenterController) sharedInstance] presentAnimated:YES];
 	} else if ([wdfAction isEqual:@"screenshot"]) {
                 //[[%c(SBScreenshotManager) sharedInstance] saveScreenshotsWithCompletion:nil];
-                wdfTakeScreenshot()
+                wdfTakeScreenshot();
         }
     }
 }
