@@ -23,7 +23,7 @@
 }
 
 -(UIColor *)navigationBarBackgroundColor {
-    return [UIColor colorWithRed:0.64 green:0.67 blue:1.00 alpha:1.0];;
+    return [UIColor colorWithRed:0.2 green:0.48 blue:0.65 alpha:1.0];;
 }
 
 -(BOOL)translucentNavigationBar {
