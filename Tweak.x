@@ -51,7 +51,7 @@ void wdfReloadPrefs() {
     id isEnabled    = [bundleDefaults valueForKey:@"Enabled"];
     
     wdfTweakEnabled = isEnabled ? [isEnabled boolValue] : YES;
-    wdfAction       = [bundleDefaults valueForKey:@"crm_action"];
+    wdfAction       = [bundleDefaults valueForKey:@"crm_action"] ?: @"coversheet";
 }
 
 %ctor {
