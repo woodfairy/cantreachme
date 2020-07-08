@@ -1,6 +1,8 @@
 static bool wdfTweakEnabled;
 static NSString *wdfAction;
 
+BOOL Springboard *sb = nil;
+
 @interface SBCoverSheetPresentationManager
 +(id)sharedInstance;
 -(void)setCoverSheetPresented:(BOOL)arg1 animated:(BOOL)arg2 withCompletion:(id)arg3;
@@ -16,6 +18,22 @@ static NSString *wdfAction;
 -(void)toggleReachability;
 -(void)wdfPerformReachabilityAction;
 @end
+
+@interface SBScreenshotManager
+-(void)saveScreenshots;
+-(void)saveScreenshotsWithCompletion:(/*^block*/id)arg1;
+@end
+
+%hook SpringBoard
+
+-(void)applicationDidFinishLaunching:(id)arg1 {
+    %orig;
+    sb = self;
+    return;
+}
+
+
+%end
 
 %hook SBReachabilityManager
 -(void)_activateReachability:(id)arg1 {
@@ -39,10 +57,17 @@ static NSString *wdfAction;
 		[[%c(SBCoverSheetPresentationManager) sharedInstance] setCoverSheetPresented:YES animated:YES withCompletion:nil];
 	} else if ([wdfAction isEqual:@"controlcenter"]) {
 		[[%c(SBControlCenterController) sharedInstance] presentAnimated:YES];
-	}
+	} else if ([wdfAction isEqual:@"screenshot"]) {
+                [[%c(SBScreenshotManager) sharedInstance] saveScreenshotsWithCompletion:nil];
+        }
     }
 }
 %end
+void wdfTakeScreenshot() {
+    dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITIY_DEFAULT, 0), ^{
+        [sb takeScreenshot];
+    });
+}
 
 void wdfReloadPrefs() {
     NSDictionary *bundleDefaults = [[NSUserDefaults standardUserDefaults]
