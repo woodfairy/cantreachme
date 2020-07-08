@@ -41,13 +41,13 @@ void wdfTakeScreenshot() {
     }
 }
 
-//-(void)toggleReachability {
-//    NSLog(@"toggleReachability");
-//    //[self wdfPerformReachabilityAction];
-//    if(!wdfTweakEnabled) {
-//        %orig;
-//    }
-//}
+-(void)toggleReachability {
+    NSLog(@"toggleReachability");
+    [self wdfPerformReachabilityAction];
+    if(!wdfTweakEnabled) {
+        %orig;
+    }
+}
 
 %new
 -(void)wdfPerformReachabilityAction {
