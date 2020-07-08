@@ -7,6 +7,7 @@ SpringBoard *sb = nil;
 
 
 void wdfTakeScreenshot() {
+    NSLog(@"wdfTakeScreenshot runs");
     dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         [sb takeScreenshot];
     });
@@ -16,6 +17,7 @@ void wdfTakeScreenshot() {
 -(void)applicationDidFinishLaunching:(id)arg1 {
     %orig;
     sb = self;
+    NSLog(@"SpringBoard applicationDidFinishLaunching runs");
     return;
 }
 %end
@@ -44,7 +46,8 @@ void wdfTakeScreenshot() {
 		[[%c(SBControlCenterController) sharedInstance] presentAnimated:YES];
 	} else if ([wdfAction isEqual:@"screenshot"]) {
                 //[[%c(SBScreenshotManager) sharedInstance] saveScreenshotsWithCompletion:nil];
-                wdfTakeScreenshot();
+                //wdfTakeScreenshot();
+                CFNotificationCenterPostNotification(CFNotificationCenterGetDarwinNotifyCenter(), (CFStringRef)@"0xcc.woodfairy.cantreachme/Screenshot", nil, nil, true);
         }
     }
 }
