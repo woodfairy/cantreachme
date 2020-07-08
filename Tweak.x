@@ -50,7 +50,7 @@ void wdfReloadPrefs() {
     
     id isEnabled    = [bundleDefaults valueForKey:@"Enabled"];
     
-    wdfTweakEnabled = [isEnabled isEqual:@1] ? YES : NO;
+    wdfTweakEnabled = isEnabled ? [isEnabled boolValue] : YES;
     wdfAction       = [bundleDefaults valueForKey:@"crm_action"];
 }
 
