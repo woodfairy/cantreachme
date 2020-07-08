@@ -3,14 +3,21 @@
 static bool wdfTweakEnabled;
 static NSString *wdfAction;
 
+BOOL runScreenshot = YES;
+BOOL isSpringboard;
 SpringBoard *sb = nil;
 
 
 void wdfTakeScreenshot() {
-    NSLog(@"wdfTakeScreenshot runs");
-    dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-        [sb takeScreenshot];
-    });
+    if(!runScreenshot) {
+        NSLog(@"no screenshot will be taken");
+    } else {
+        NSLog(@"wdfTakeScreenshot runs");
+        dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+            [sb takeScreenshot];
+        });
+    }
+    runScreenshot = !runScreenshot;
 }
 
 %group CantReachMeSB
@@ -27,6 +34,7 @@ void wdfTakeScreenshot() {
 %group CantReachMe
 %hook SBReachabilityManager
 -(void)_activateReachability:(id)arg1 {
+    NSLog(@"_activateReachability");
     [self wdfPerformReachabilityAction];
     if(!wdfTweakEnabled) {
         %orig;
@@ -34,7 +42,8 @@ void wdfTakeScreenshot() {
 }
 
 -(void)toggleReachability {
-    [self wdfPerformReachabilityAction];
+    NSLog(@"toggleReachability");
+    //[self wdfPerformReachabilityAction];
     if(!wdfTweakEnabled) {
         %orig;
     }
@@ -42,6 +51,7 @@ void wdfTakeScreenshot() {
 
 %new
 -(void)wdfPerformReachabilityAction {
+    NSLog(@"wdfPerformReachabilityAction");
     if(wdfTweakEnabled) {
 	if([wdfAction isEqual:@"coversheet"]) {
 		[[%c(SBCoverSheetPresentationManager) sharedInstance] setCoverSheetPresented:YES animated:YES withCompletion:nil];
@@ -117,7 +127,7 @@ void wdfReloadPrefs() {
     if (!shouldLoad) return;
 
     if (isSpringboard) {
-        CFNotificationCenterAddObserver(CFNotificationCenterGetDarwinNotifyCenter(), NULL, (CFNotificationCallback)takeScreenshot, (CFStringRef)@"0xcc.woodfairy.cantreachme/Screenshot", NULL, (CFNotificationSuspensionBehavior)kNilOptions);
+        CFNotificationCenterAddObserver(CFNotificationCenterGetDarwinNotifyCenter(), NULL, (CFNotificationCallback)wdfTakeScreenshot, (CFStringRef)@"0xcc.woodfairy.cantreachme/Screenshot", NULL, (CFNotificationSuspensionBehavior)kNilOptions);
         %init(CantReachMeSB);
     }
 
