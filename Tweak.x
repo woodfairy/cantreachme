@@ -4,7 +4,7 @@ static bool wdfTweakEnabled;
 static NSString *wdfAction;
 
 BOOL isSpringboard;
-BOOL throttleScreenshot = YES;
+BOOL runScreenshot = YES;
 SpringBoard         *sb = nil;
 
 
@@ -13,9 +13,9 @@ void wdfTakeScreenshot() {
         NSLog(@"no screenshot will be taken");
     } else {
         NSLog(@"wdfTakeScreenshot runs");
-        dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        //dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
             [sb takeScreenshot];
-        });
+        //});
     }
     runScreenshot = !runScreenshot;
 }
