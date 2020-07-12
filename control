@@ -1,9 +1,9 @@
 Package: 0xcc.woodfairy.cantreachme
 Name: CantReachMe
-Depends: mobilesubstrate
+Depends: mobilesubstrate, preferenceloader
 Version: 1.1.1
 Architecture: iphoneos-arm
-Description: Show notification center when invoking reachability gesture
+Description: Custom actions for the reachability gesture
 Maintainer: woodfairy
 Author: woodfairy
 Section: Tweaks
