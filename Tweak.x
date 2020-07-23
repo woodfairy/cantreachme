@@ -5,8 +5,7 @@ static NSString *wdfAction;
 
 BOOL isSpringboard;
 BOOL runScreenshot = YES;
-SpringBoard         *sb = nil;
-
+SpringBoard *sb    = nil;
 
 void wdfTakeScreenshot() {
     if(!runScreenshot) {
@@ -17,6 +16,7 @@ void wdfTakeScreenshot() {
             [sb takeScreenshot];
         //});
     }
+    // this works around an issue where _activateReachabiity is called twice for whatever reason. If you know why or you have a solution, please contact me or make a pull request.
     runScreenshot = !runScreenshot;
 }
 
