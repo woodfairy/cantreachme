@@ -40,6 +40,8 @@
 				<string>Dark Mode</string>
 				<string>Airplane Mode</string>
 				<string>Flashlight</string>
+				<string>Bluetooth</string>
+				<string>WiFi</string>
 			</array>
 			<key>validValues</key>
 			<array>
@@ -49,6 +51,8 @@
 				<string>darkmode</string>
 				<string>airplane</string>
 				<string>fleshlight</string>
+				<string>bluetooth</string>
+				<string>wifi</string>
 			</array>
 		</dict>
 		<dict>
