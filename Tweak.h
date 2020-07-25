@@ -1,5 +1,5 @@
 @interface SBReachabilityManager
 -(void)_activateReachability:(id)arg1;
 -(void)toggleReachability;
--(void)wdfPerformReachabilityAction;
+-(void)wdfPerformReachabilityAction:(BOOL)throttle;
 @end

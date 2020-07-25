@@ -24,16 +24,6 @@ void wdfTakeScreenshot() {
     performAction = !performAction;
 }
 
-void wdfToggleFleshlight() {
-    if(!performAction) {
-        NSLog(@"fleshlight won't be toggled");
-    } else {
-        [sharedFleshlight setFlashlightLevel: (sharedFleshlight.flashlightLevel > 0 ? 0.0 : 1.0) withError:nil];
-    }
-
-    performAction = !performAction;
-}
-
 void wdfToggleBluetooth() {
     if(!performAction) {
         NSLog(@"bluetooth won't be toggled");
@@ -92,7 +82,7 @@ void wdfToggleWifi() {
 %hook SBReachabilityManager
 -(void)_activateReachability:(id)arg1 {
     NSLog(@"_activateReachability");
-    [self wdfPerformReachabilityAction];
+    [self wdfPerformReachabilityAction:YES];
     if(!wdfTweakEnabled) {
         %orig;
     }
@@ -101,32 +91,29 @@ void wdfToggleWifi() {
 -(void)toggleReachability {
     NSLog(@"toggleReachability");
     performAction = YES;
-    [self wdfPerformReachabilityAction];
+    [self wdfPerformReachabilityAction:NO];
     if(!wdfTweakEnabled) {
         %orig;
     }
 }
 
 %new
--(void)wdfPerformReachabilityAction {
+-(void)wdfPerformReachabilityAction:(BOOL)throttle {
     NSLog(@"wdfPerformReachabilityAction");
     if(wdfTweakEnabled) {
 	    if([wdfAction isEqual:@"coversheet"]) {
             [wdfReachabilityController coversheetAction];
-		    //[[%c(SBCoverSheetPresentationManager) sharedInstance] setCoverSheetPresented:YES animated:YES withCompletion:nil];
 	    } else if ([wdfAction isEqual:@"controlcenter"]) {
             [wdfReachabilityController controlcenterAction];
-		    //[[%c(SBControlCenterController) sharedInstance] presentAnimated:YES];
 	    } else if ([wdfAction isEqual:@"screenshot"]) {
+            //TODO: create action strategy
             CFNotificationCenterPostNotification(CFNotificationCenterGetDarwinNotifyCenter(), (CFStringRef)@"0xcc.woodfairy.cantreachme/Screenshot", nil, nil, true);
         } else if ([wdfAction isEqual:@"darkmode"]) {
-            //[[%c(UIUserInterfaceStyleArbiter) sharedInstance] toggleCurrentStyle];
             [wdfReachabilityController darkmodeAction];
         } else if([wdfAction isEqual:@"airplane"]) {
-            BOOL isInAirplaneMode = [[%c(SBAirplaneModeController) sharedInstance] isInAirplaneMode];
-            [[%c(SBAirplaneModeController) sharedInstance] setInAirplaneMode:!isInAirplaneMode];
+            [wdfReachabilityController airplaneAction];
         } else if([wdfAction isEqual:@"fleshlight"]) {
-            wdfToggleFleshlight();
+            [wdfReachabilityController fleshlightAction:sharedFleshlight throttle:throttle];
         } else if([wdfAction isEqual:@"bluetooth"]) {
             wdfToggleBluetooth();
         } else if([wdfAction isEqual:@"wifi"]) {

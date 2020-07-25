@@ -1,3 +1,5 @@
+#import "../WDFReachabilityAction/WDFFleshlightAction.h"
+
 @interface SBScreenshotManager
 -(void)saveScreenshots;
 -(void)saveScreenshotsWithCompletion:(/*^block*/id)arg1;
@@ -6,18 +8,6 @@
 @interface SpringBoard
 -(void)takeScreenshot;
 -(void)takeScreenshotAndEdit:(BOOL)arg1;
-@end
-
-@interface SBAirplaneModeController
-+(id)sharedInstance;
--(BOOL)isInAirplaneMode;
--(void)setInAirplaneMode:(BOOL)arg1;
-@end
-
-@interface AVFlashlight
--(id)init;
--(float)flashlightLevel;
--(BOOL)setFlashlightLevel:(float)arg1 withError:(id*)arg2;
 @end
 
 @interface BluetoothManager
@@ -39,5 +29,5 @@
 -(void)screenshotAction;
 -(void)darkmodeAction;
 -(void)airplaneAction;
--(void)fleshlightAction;
+-(void)fleshlightAction:(AVFlashlight *)sharedFleshlight throttle:(BOOL)throttle;
 @end
