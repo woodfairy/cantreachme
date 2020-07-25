@@ -23,4 +23,6 @@
 -(void)openGithub;
 -(void)openTwitter;
 -(void)openLittenTwitter;
+-(void)openConstanzeTwitter;
+-(void)openNepetaTwitter;
 @end
