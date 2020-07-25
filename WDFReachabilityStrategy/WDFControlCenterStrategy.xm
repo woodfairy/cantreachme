@@ -1,6 +1,6 @@
-#import "WDFControlCenterAction.h"
+#import "WDFControlCenterStrategy.h"
 
-@implementation WDFControlCenterAction
+@implementation WDFControlCenterStrategy
 -(void)run {
     [[%c(SBControlCenterController) sharedInstance] presentAnimated:YES];
 }

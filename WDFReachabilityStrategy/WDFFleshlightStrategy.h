@@ -1,4 +1,4 @@
-#import "WDFReachabilityAction.h"
+#import "WDFReachabilityStrategy.h"
 
 @interface AVFlashlight
 -(id)init;
@@ -6,6 +6,6 @@
 -(BOOL)setFlashlightLevel:(float)arg1 withError:(id*)arg2;
 @end
 
-@interface WDFFleshlightAction : WDFReachabilityAction
+@interface WDFFleshlightStrategy : WDFReachabilityStrategy
 -(void)run:(AVFlashlight *)sharedFleshlight throttle:(BOOL)throttle;
 @end

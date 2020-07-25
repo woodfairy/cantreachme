@@ -1,10 +1,10 @@
-#import "WDFReachabilityAction.h"
+#import "WDFReachabilityStrategy.h"
 
 @interface SBControlCenterController
 +(id)sharedInstance;
 +(void)presentAnimated:(BOOL)arg1;
 @end
 
-@interface WDFControlCenterAction : WDFReachabilityAction
+@interface WDFControlCenterStrategy : WDFReachabilityStrategy
 -(void)run;
 @end

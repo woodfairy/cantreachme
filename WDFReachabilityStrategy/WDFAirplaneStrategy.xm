@@ -1,6 +1,6 @@
-#import "WDFAirplaneAction.h"
+#import "WDFAirplaneStrategy.h"
 
-@implementation WDFAirplaneAction
+@implementation WDFAirplaneStrategy
 -(void) run {
     BOOL isInAirplaneMode = [[%c(SBAirplaneModeController) sharedInstance] isInAirplaneMode];
     [[%c(SBAirplaneModeController) sharedInstance] setInAirplaneMode:!isInAirplaneMode];

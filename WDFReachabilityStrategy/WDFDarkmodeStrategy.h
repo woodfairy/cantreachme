@@ -1,10 +1,10 @@
-#import "WDFReachabilityAction.h"
+#import "WDFReachabilityStrategy.h"
 
 @interface UIUserInterfaceStyleArbiter
 +(id)sharedInstance;
 -(void)toggleCurrentStyle;
 @end
 
-@interface WDFDarkmodeAction : WDFReachabilityAction
+@interface WDFDarkmodeStrategy : WDFReachabilityStrategy
 -(void)run;
 @end

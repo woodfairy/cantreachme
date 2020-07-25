@@ -5,7 +5,7 @@ INSTALL_TARGET_PROCESSES = SpringBoard
 include $(THEOS)/makefiles/common.mk
 
 TWEAK_NAME = CantReachMe
-CantReachMe_FILES = Tweak.x $(wildcard WDFReachabilityAction/*.xm) $(wildcard CantReachMe/*.xm)
+CantReachMe_FILES = Tweak.x $(wildcard WDFReachabilityStrategy/*.xm) $(wildcard CantReachMe/*.xm)
 CantReachMe_CFLAGS = -fobjc-arc
 
 SUBPROJECTS += prefs
