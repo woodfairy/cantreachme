@@ -5,10 +5,8 @@ static bool wdfTweakEnabled;
 static NSString *wdfAction;
 
 BOOL isSpringboard;
-BOOL performAction             = YES;
 SpringBoard *sb                = nil;
 AVFlashlight *sharedFleshlight = nil;
-
 WDFReachabilityController *wdfReachabilityController;
 
 %group CantReachMeSB
@@ -48,7 +46,6 @@ WDFReachabilityController *wdfReachabilityController;
 
 -(void)toggleReachability {
     NSLog(@"toggleReachability");
-    performAction = YES;
     [self wdfPerformReachabilityAction:NO];
     if(!wdfTweakEnabled) {
         %orig;
