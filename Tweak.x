@@ -1,62 +1,17 @@
 #import "Tweak.h"
+#import "CantReachMe/WDFReachabilityController.h"
 
 static bool wdfTweakEnabled;
 static NSString *wdfAction;
 
 BOOL isSpringboard;
-BOOL performAction       = YES;
-SpringBoard *sb          = nil;
+BOOL performAction             = YES;
+SpringBoard *sb                = nil;
 AVFlashlight *sharedFleshlight = nil;
 
-void wdfTakeScreenshot() {
-    if(!performAction) {
-        NSLog(@"no screenshot will be taken");
-    } else {
-        NSLog(@"wdfTakeScreenshot runs");
-        //dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-            [sb takeScreenshot];
-        //});
-    }
-    // this works around an issue where _activateReachabiity is called twice for whatever reason. If you know why or you have a solution, please contact me or make a pull request.
-    performAction = !performAction;
-}
-
-void wdfToggleFleshlight() {
-    if(!performAction) {
-        NSLog(@"fleshlight won't be toggled");
-    } else {
-        [sharedFleshlight setFlashlightLevel: (sharedFleshlight.flashlightLevel > 0 ? 0.0 : 1.0) withError:nil];
-    }
-
-    performAction = !performAction;
-}
-
-void wdfToggleBluetooth() {
-    if(!performAction) {
-        NSLog(@"bluetooth won't be toggled");
-    } else {
-        BOOL isPowered = [[%c(BluetoothManager) sharedInstance] powered];
-        [[%c(BluetoothManager) sharedInstance] setPowered:!isPowered];
-        [[%c(BluetoothManager) sharedInstance] _powerChanged];
-    }
-
-    performAction = !performAction;
-}
-
-void wdfToggleWifi() {
-    if(!performAction) {
-        NSLog(@"wifi won't be toggled");
-    } else {
-        BOOL isPowered = [[%c(WFClient) sharedInstance] powered];
-        [[%c(WFClient) sharedInstance] setPowered:!isPowered];
-    }
-
-    performAction = !performAction;
-}
-
+WDFReachabilityController *wdfReachabilityController;
 
 %group CantReachMeSB
-
 %hook SpringBoard
 -(void)applicationDidFinishLaunching:(id)arg1 {
     %orig;
@@ -65,12 +20,10 @@ void wdfToggleWifi() {
     return;
 }
 %end
-
 %end // group CantReachMeSB
 
 
 %group CantReachMeAVFleshlight
-
 %hook AVFlashlight
 -(id)init {
     if(!sharedFleshlight) {
@@ -80,16 +33,14 @@ void wdfToggleWifi() {
     return sharedFleshlight;
 }
 %end
-
 %end // group CantReachMeAVFlashlight
 
 
 %group CantReachMe
-
 %hook SBReachabilityManager
 -(void)_activateReachability:(id)arg1 {
     NSLog(@"_activateReachability");
-    [self wdfPerformReachabilityAction];
+    [self wdfPerformReachabilityAction:YES];
     if(!wdfTweakEnabled) {
         %orig;
     }
@@ -98,38 +49,36 @@ void wdfToggleWifi() {
 -(void)toggleReachability {
     NSLog(@"toggleReachability");
     performAction = YES;
-    [self wdfPerformReachabilityAction];
+    [self wdfPerformReachabilityAction:NO];
     if(!wdfTweakEnabled) {
         %orig;
     }
 }
 
 %new
--(void)wdfPerformReachabilityAction {
+-(void)wdfPerformReachabilityAction:(BOOL)throttle {
     NSLog(@"wdfPerformReachabilityAction");
     if(wdfTweakEnabled) {
-	if([wdfAction isEqual:@"coversheet"]) {
-		    [[%c(SBCoverSheetPresentationManager) sharedInstance] setCoverSheetPresented:YES animated:YES withCompletion:nil];
+	    if([wdfAction isEqual:@"coversheet"]) {
+            [wdfReachabilityController coversheetAction];
 	    } else if ([wdfAction isEqual:@"controlcenter"]) {
-		    [[%c(SBControlCenterController) sharedInstance] presentAnimated:YES];
+            [wdfReachabilityController controlcenterAction];
 	    } else if ([wdfAction isEqual:@"screenshot"]) {
-            CFNotificationCenterPostNotification(CFNotificationCenterGetDarwinNotifyCenter(), (CFStringRef)@"0xcc.woodfairy.cantreachme/Screenshot", nil, nil, true);
+            [wdfReachabilityController screenshotAction:sb throttle:throttle];
         } else if ([wdfAction isEqual:@"darkmode"]) {
-            [[%c(UIUserInterfaceStyleArbiter) sharedInstance] toggleCurrentStyle];
+            [wdfReachabilityController darkmodeAction];
         } else if([wdfAction isEqual:@"airplane"]) {
-            BOOL isInAirplaneMode = [[%c(SBAirplaneModeController) sharedInstance] isInAirplaneMode];
-            [[%c(SBAirplaneModeController) sharedInstance] setInAirplaneMode:!isInAirplaneMode];
+            [wdfReachabilityController airplaneAction];
         } else if([wdfAction isEqual:@"fleshlight"]) {
-            wdfToggleFleshlight();
+            [wdfReachabilityController fleshlightAction:sharedFleshlight throttle:throttle];
         } else if([wdfAction isEqual:@"bluetooth"]) {
-            wdfToggleBluetooth();
+            [wdfReachabilityController bluetoothAction:throttle];
         } else if([wdfAction isEqual:@"wifi"]) {
-            wdfToggleWifi();
+            [wdfReachabilityController wifiAction:throttle];
         }
     }
 }
 %end
-
 %end // group CantReachMe
 
 void wdfReloadPrefs() {
@@ -140,6 +89,8 @@ void wdfReloadPrefs() {
 }
 
 %ctor {
+    wdfReachabilityController = [[WDFReachabilityController alloc] init];
+
     NSArray *blacklist = @[
         @"backboardd",
         @"duetexpertd",
@@ -189,10 +140,7 @@ void wdfReloadPrefs() {
 
     if (!shouldLoad) return;
 
-    if (isSpringboard) {
-        CFNotificationCenterAddObserver(CFNotificationCenterGetDarwinNotifyCenter(), NULL, (CFNotificationCallback)wdfTakeScreenshot, (CFStringRef)@"0xcc.woodfairy.cantreachme/Screenshot", NULL, (CFNotificationSuspensionBehavior)kNilOptions);
-        %init(CantReachMeSB);
-    }
+    if (isSpringboard) %init(CantReachMeSB);
 
     wdfReloadPrefs();
     CFNotificationCenterAddObserver(CFNotificationCenterGetDarwinNotifyCenter(), NULL, wdfReloadPrefs, CFSTR("0xcc.woodfairy.cantreachme/ReloadPrefs"), NULL, CFNotificationSuspensionBehaviorCoalesce);

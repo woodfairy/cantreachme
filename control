@@ -1,7 +1,7 @@
 Package: 0xcc.woodfairy.cantreachme
 Name: CantReachMe
 Depends: mobilesubstrate, preferenceloader
-Version: 1.1.3
+Version: 1.2
 Architecture: iphoneos-arm
 Description: Custom actions for the reachability gesture
 Maintainer: woodfairy
