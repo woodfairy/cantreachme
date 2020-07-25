@@ -4,11 +4,12 @@ static bool wdfTweakEnabled;
 static NSString *wdfAction;
 
 BOOL isSpringboard;
-BOOL runScreenshot = YES;
-SpringBoard *sb    = nil;
+BOOL performAction       = YES;
+SpringBoard *sb          = nil;
+AVFlashlight *sharedFleshlight = nil;
 
 void wdfTakeScreenshot() {
-    if(!runScreenshot) {
+    if(!performAction) {
         NSLog(@"no screenshot will be taken");
     } else {
         NSLog(@"wdfTakeScreenshot runs");
@@ -17,8 +18,19 @@ void wdfTakeScreenshot() {
         //});
     }
     // this works around an issue where _activateReachabiity is called twice for whatever reason. If you know why or you have a solution, please contact me or make a pull request.
-    runScreenshot = !runScreenshot;
+    performAction = !performAction;
 }
+
+void wdfToggleFleshlight() {
+    if(!performAction) {
+        NSLog(@"flaslight won't be toggled");
+    } else {
+        [sharedFleshlight setFlashlightLevel: (sharedFleshlight.flashlightLevel > 0 ? 0.0 : 1.0) withError:nil];
+    }
+
+    performAction = !performAction;
+}
+
 
 %group CantReachMeSB
 
@@ -32,6 +44,22 @@ void wdfTakeScreenshot() {
 %end
 
 %end // group CantReachMeSB
+
+
+%group CantReachMeAVFleshlight
+
+%hook AVFlashlight
+-(id)init {
+    if(!sharedFleshlight) {
+        sharedFleshlight = %orig;
+    }
+
+    return sharedFleshlight;
+}
+%end
+
+%end // group CantReachMeAVFlashlight
+
 
 %group CantReachMe
 
@@ -57,11 +85,18 @@ void wdfTakeScreenshot() {
     NSLog(@"wdfPerformReachabilityAction");
     if(wdfTweakEnabled) {
 	if([wdfAction isEqual:@"coversheet"]) {
-		[[%c(SBCoverSheetPresentationManager) sharedInstance] setCoverSheetPresented:YES animated:YES withCompletion:nil];
-	} else if ([wdfAction isEqual:@"controlcenter"]) {
-		[[%c(SBControlCenterController) sharedInstance] presentAnimated:YES];
-	} else if ([wdfAction isEqual:@"screenshot"]) {
-                CFNotificationCenterPostNotification(CFNotificationCenterGetDarwinNotifyCenter(), (CFStringRef)@"0xcc.woodfairy.cantreachme/Screenshot", nil, nil, true);
+		    [[%c(SBCoverSheetPresentationManager) sharedInstance] setCoverSheetPresented:YES animated:YES withCompletion:nil];
+	    } else if ([wdfAction isEqual:@"controlcenter"]) {
+		    [[%c(SBControlCenterController) sharedInstance] presentAnimated:YES];
+	    } else if ([wdfAction isEqual:@"screenshot"]) {
+            CFNotificationCenterPostNotification(CFNotificationCenterGetDarwinNotifyCenter(), (CFStringRef)@"0xcc.woodfairy.cantreachme/Screenshot", nil, nil, true);
+        } else if ([wdfAction isEqual:@"darkmode"]) {
+            [[%c(UIUserInterfaceStyleArbiter) sharedInstance] toggleCurrentStyle];
+        } else if([wdfAction isEqual:@"airplane"]) {
+            BOOL isInAirplaneMode = [[%c(SBAirplaneModeController) sharedInstance] isInAirplaneMode];
+            [[%c(SBAirplaneModeController) sharedInstance] setInAirplaneMode:!isInAirplaneMode];
+        } else if([wdfAction isEqual:@"fleshlight"]) {
+            wdfToggleFleshlight();
         }
     }
 }
@@ -135,5 +170,6 @@ void wdfReloadPrefs() {
     CFNotificationCenterAddObserver(CFNotificationCenterGetDarwinNotifyCenter(), NULL, wdfReloadPrefs, CFSTR("0xcc.woodfairy.cantreachme/ReloadPrefs"), NULL, CFNotificationSuspensionBehaviorCoalesce);
 
     %init(CantReachMe)
+    %init(CantReachMeAVFleshlight)
 }
 
