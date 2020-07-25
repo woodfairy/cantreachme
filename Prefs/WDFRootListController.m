@@ -167,4 +167,18 @@
 	completionHandler:nil];
 }
 
+-(void)openConstanzeTwitter {
+    [[UIApplication sharedApplication]
+	openURL: [NSURL URLWithString:@"https://twitter.com/JulzTDG"]
+	options: @{}
+	completionHandler:nil];
+}
+
+-(void)openNepetaTwitter {
+    [[UIApplication sharedApplication]
+	openURL: [NSURL URLWithString:@"https://twitter.com/NepetaDev"]
+	options: @{}
+	completionHandler:nil];
+}
+
 @end
