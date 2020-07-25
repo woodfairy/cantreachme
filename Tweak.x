@@ -97,6 +97,7 @@ void wdfToggleWifi() {
 
 -(void)toggleReachability {
     NSLog(@"toggleReachability");
+    performAction = YES;
     [self wdfPerformReachabilityAction];
     if(!wdfTweakEnabled) {
         %orig;
@@ -199,4 +200,3 @@ void wdfReloadPrefs() {
     %init(CantReachMe)
     %init(CantReachMeAVFleshlight)
 }
-
