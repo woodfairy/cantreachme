@@ -40,3 +40,16 @@
 -(float)flashlightLevel;
 -(BOOL)setFlashlightLevel:(float)arg1 withError:(id*)arg2;
 @end
+
+@interface BluetoothManager
++(BluetoothManager*)sharedInstance;
+-(BOOL)powered;
+-(void)setPowered:(BOOL)arg1;
+-(void)_powerChanged;
+@end
+
+@interface WFClient
++(WFClient*)sharedInstance;
+-(BOOL)powered;
+-(void)setPowered:(BOOL)arg1;
+@end

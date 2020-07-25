@@ -40,6 +40,8 @@
 				<string>Dark Mode</string>
 				<string>Airplane Mode</string>
 				<string>Flashlight</string>
+				<string>Bluetooth</string>
+				<string>WiFi</string>
 			</array>
 			<key>validValues</key>
 			<array>
@@ -49,6 +51,8 @@
 				<string>darkmode</string>
 				<string>airplane</string>
 				<string>fleshlight</string>
+				<string>bluetooth</string>
+				<string>wifi</string>
 			</array>
 		</dict>
 		<dict>
@@ -90,6 +94,30 @@
 			<string>openLittenTwitter</string>
 			<key>label</key>
 			<string>@Litteeen</string>
+		</dict>
+		<dict>
+			<key>cell</key>
+			<string>PSButtonCell</string>
+			<key>action</key>
+			<string>openLittenTwitter</string>
+			<key>label</key>
+			<string>@Litteeen</string>
+		</dict>
+		<dict>
+			<key>cell</key>
+			<string>PSButtonCell</string>
+			<key>action</key>
+			<string>openConstanzeTwitter</string>
+			<key>label</key>
+			<string>@JulzTDG</string>
+		</dict>
+		<dict>
+			<key>cell</key>
+			<string>PSButtonCell</string>
+			<key>action</key>
+			<string>openNepetaTwitter</string>
+			<key>label</key>
+			<string>@NepetaDev</string>
 		</dict>
 
 	</array>
