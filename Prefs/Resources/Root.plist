@@ -99,14 +99,6 @@
 			<key>cell</key>
 			<string>PSButtonCell</string>
 			<key>action</key>
-			<string>openLittenTwitter</string>
-			<key>label</key>
-			<string>@Litteeen</string>
-		</dict>
-		<dict>
-			<key>cell</key>
-			<string>PSButtonCell</string>
-			<key>action</key>
 			<string>openConstanzeTwitter</string>
 			<key>label</key>
 			<string>@JulzTDG</string>

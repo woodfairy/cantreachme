@@ -1,12 +1,19 @@
 #import "WDFReachabilityController.h"
+#import "../WDFReachabilityAction/WDFCoversheetAction.h"
+#import "../WDFReachabilityAction/WDFControlCenterAction.h"
+#import "../WDFReachabilityAction/WDFDarkmodeAction.h"
+
+static WDFCoversheetAction *coversheetAction       = [[WDFCoversheetAction alloc] init];
+static WDFControlCenterAction *controlcenterAction = [[WDFControlCenterAction alloc] init];
+static WDFDarkmodeAction *darkmodeAction           = [[WDFDarkmodeAction alloc] init];
 
 @implementation WDFReachabilityController
 -(void)coversheetAction {
-    [[%c(SBCoverSheetPresentationManager) sharedInstance] setCoverSheetPresented:YES animated:YES withCompletion:nil];
+    [coversheetAction run];
 }
 
 -(void)controlcenterAction {
-    [[%c(SBControlCenterController) sharedInstance] presentAnimated:YES];
+    [controlcenterAction run];
 }
 
 -(void)screenshotAction {
@@ -14,7 +21,7 @@
 }
 
 -(void)darkmodeAction {
-[   [%c(UIUserInterfaceStyleArbiter) sharedInstance] toggleCurrentStyle];
+    [darkmodeAction run];
 }
 
 -(void)airplaneAction {

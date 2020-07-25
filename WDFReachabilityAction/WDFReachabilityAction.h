@@ -1,0 +1,2 @@
+@interface WDFReachabilityAction : NSObject
+@end

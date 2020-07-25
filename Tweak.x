@@ -1,4 +1,5 @@
 #import "Tweak.h"
+#import "CantReachMe/WDFReachabilityController.h"
 
 static bool wdfTweakEnabled;
 static NSString *wdfAction;
@@ -7,6 +8,8 @@ BOOL isSpringboard;
 BOOL performAction       = YES;
 SpringBoard *sb          = nil;
 AVFlashlight *sharedFleshlight = nil;
+
+WDFReachabilityController *wdfReachabilityController;
 
 void wdfTakeScreenshot() {
     if(!performAction) {
@@ -108,14 +111,17 @@ void wdfToggleWifi() {
 -(void)wdfPerformReachabilityAction {
     NSLog(@"wdfPerformReachabilityAction");
     if(wdfTweakEnabled) {
-	if([wdfAction isEqual:@"coversheet"]) {
-		    [[%c(SBCoverSheetPresentationManager) sharedInstance] setCoverSheetPresented:YES animated:YES withCompletion:nil];
+	    if([wdfAction isEqual:@"coversheet"]) {
+            [wdfReachabilityController coversheetAction];
+		    //[[%c(SBCoverSheetPresentationManager) sharedInstance] setCoverSheetPresented:YES animated:YES withCompletion:nil];
 	    } else if ([wdfAction isEqual:@"controlcenter"]) {
-		    [[%c(SBControlCenterController) sharedInstance] presentAnimated:YES];
+            [wdfReachabilityController controlcenterAction];
+		    //[[%c(SBControlCenterController) sharedInstance] presentAnimated:YES];
 	    } else if ([wdfAction isEqual:@"screenshot"]) {
             CFNotificationCenterPostNotification(CFNotificationCenterGetDarwinNotifyCenter(), (CFStringRef)@"0xcc.woodfairy.cantreachme/Screenshot", nil, nil, true);
         } else if ([wdfAction isEqual:@"darkmode"]) {
-            [[%c(UIUserInterfaceStyleArbiter) sharedInstance] toggleCurrentStyle];
+            //[[%c(UIUserInterfaceStyleArbiter) sharedInstance] toggleCurrentStyle];
+            [wdfReachabilityController darkmodeAction];
         } else if([wdfAction isEqual:@"airplane"]) {
             BOOL isInAirplaneMode = [[%c(SBAirplaneModeController) sharedInstance] isInAirplaneMode];
             [[%c(SBAirplaneModeController) sharedInstance] setInAirplaneMode:!isInAirplaneMode];
@@ -140,6 +146,8 @@ void wdfReloadPrefs() {
 }
 
 %ctor {
+    wdfReachabilityController = [[WDFReachabilityController alloc] init];
+
     NSArray *blacklist = @[
         @"backboardd",
         @"duetexpertd",
