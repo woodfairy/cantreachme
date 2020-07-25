@@ -37,12 +37,18 @@
 				<string>Notification Center</string>
 				<string>Control Center</string>
 				<string>Screenshot</string>
+				<string>Dark Mode</string>
+				<string>Airplane Mode</string>
+				<string>Flashlight</string>
 			</array>
 			<key>validValues</key>
 			<array>
 				<string>coversheet</string>
 				<string>controlcenter</string>
 				<string>screenshot</string>
+				<string>darkmode</string>
+				<string>airplane</string>
+				<string>fleshlight</string>
 			</array>
 		</dict>
 		<dict>
