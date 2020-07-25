@@ -1,6 +1,6 @@
-#import "WDFDarkmodeAction.h"
+#import "WDFDarkmodeStrategy.h"
 
-@implementation WDFDarkmodeAction
+@implementation WDFDarkmodeStrategy
 -(void)run {
     [[%c(UIUserInterfaceStyleArbiter) sharedInstance] toggleCurrentStyle];
 }

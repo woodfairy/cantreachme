@@ -1,38 +1,52 @@
 #import "WDFReachabilityController.h"
-#import "../WDFReachabilityAction/WDFCoversheetAction.h"
-#import "../WDFReachabilityAction/WDFControlCenterAction.h"
-#import "../WDFReachabilityAction/WDFDarkmodeAction.h"
-#import "../WDFReachabilityAction/WDFAirplaneAction.h"
-#import "../WDFReachabilityAction/WDFFleshlightAction.h"
+#import "../WDFReachabilityStrategy/WDFCoversheetStrategy.h"
+#import "../WDFReachabilityStrategy/WDFControlCenterStrategy.h"
+#import "../WDFReachabilityStrategy/WDFScreenshotStrategy.h"
+#import "../WDFReachabilityStrategy/WDFDarkmodeStrategy.h"
+#import "../WDFReachabilityStrategy/WDFAirplaneStrategy.h"
+#import "../WDFReachabilityStrategy/WDFFleshlightStrategy.h"
+#import "../WDFReachabilityStrategy/WDFBluetoothStrategy.h"
+#import "../WDFReachabilityStrategy/WDFWifiStrategy.h"
 
-static WDFCoversheetAction *coversheetAction       = [[WDFCoversheetAction alloc] init];
-static WDFControlCenterAction *controlcenterAction = [[WDFControlCenterAction alloc] init];
-static WDFDarkmodeAction *darkmodeAction           = [[WDFDarkmodeAction alloc] init];
-static WDFAirplaneAction *airplaneAction           = [[WDFAirplaneAction alloc] init];
-static WDFFleshlightAction *fleshlightAction       = [[WDFFleshlightAction alloc] init];
+static WDFCoversheetStrategy *coversheetStrategy       = [[WDFCoversheetStrategy alloc] init];
+static WDFControlCenterStrategy *controlcenterStrategy = [[WDFControlCenterStrategy alloc] init];
+static WDFScreenshotStrategy *screenshotStrategy       = [[WDFScreenshotStrategy alloc] init];
+static WDFDarkmodeStrategy *darkmodeStrategy           = [[WDFDarkmodeStrategy alloc] init];
+static WDFAirplaneStrategy *airplaneStrategy           = [[WDFAirplaneStrategy alloc] init];
+static WDFFleshlightStrategy *fleshlightStrategy       = [[WDFFleshlightStrategy alloc] init];
+static WDFBluetoothStrategy *bluetoothStrategy         = [[WDFBluetoothStrategy alloc] init];
+static WDFWifiStrategy *wifiStrategy                   = [[WDFWifiStrategy alloc] init];
 
 @implementation WDFReachabilityController
 -(void)coversheetAction {
-    [coversheetAction run];
+    [coversheetStrategy run];
 }
 
 -(void)controlcenterAction {
-    [controlcenterAction run];
+    [controlcenterStrategy run];
 }
 
--(void)screenshotAction {
-    CFNotificationCenterPostNotification(CFNotificationCenterGetDarwinNotifyCenter(), (CFStringRef)@"0xcc.woodfairy.cantreachme/Screenshot", nil, nil, true);
+-(void)screenshotAction:(SpringBoard *)sharedSpringboard throttle:(BOOL)throttle {
+    [screenshotStrategy run:sharedSpringboard throttle:throttle];
 }
 
 -(void)darkmodeAction {
-    [darkmodeAction run];
+    [darkmodeStrategy run];
 }
 
 -(void)airplaneAction {
-    [airplaneAction run];
+    [airplaneStrategy run];
 }
 
--(void)fleshlightAction:(AVFlashlight *)sharedFleshlight throttle:(BOOL)throttle{
-    [fleshlightAction run:sharedFleshlight throttle:throttle];
+-(void)fleshlightAction:(AVFlashlight *)sharedFleshlight throttle:(BOOL)throttle {
+    [fleshlightStrategy run:sharedFleshlight throttle:throttle];
+}
+
+-(void)bluetoothAction:(BOOL)throttle {
+    [bluetoothStrategy run:throttle];
+}
+
+-(void)wifiAction:(BOOL)throttle {
+    [wifiStrategy run:throttle];
 }
 @end

@@ -1,4 +1,4 @@
-#import "WDFReachabilityAction.h"
+#import "WDFReachabilityStrategy.h"
 
 @interface SBAirplaneModeController
 +(id)sharedInstance;
@@ -6,6 +6,6 @@
 -(void)setInAirplaneMode:(BOOL)arg1;
 @end
 
-@interface WDFAirplaneAction : WDFReachabilityAction
+@interface WDFAirplaneStrategy : WDFReachabilityStrategy
 -(void)run;
 @end

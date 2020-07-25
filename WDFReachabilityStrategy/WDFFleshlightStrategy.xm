@@ -1,17 +1,16 @@
-#import "WDFFleshlightAction.h"
+#import "WDFFleshlightStrategy.h"
 
-static BOOL performAction = YES;
+static BOOL performStrategy = YES;
 
-@implementation WDFFleshlightAction
+@implementation WDFFleshlightStrategy
 -(void) run:(AVFlashlight *)sharedFleshlight throttle:(BOOL)throttle {
-    NSLog(@"run fleshlightAction");
-    performAction = throttle ? performAction : !throttle;
-    if(!performAction) {
+    NSLog(@"run fleshlightStrategy");
+    if(!performStrategy && throttle) {
         NSLog(@"fleshlight won't be toggled");
     } else {
         [sharedFleshlight setFlashlightLevel: (sharedFleshlight.flashlightLevel > 0 ? 0.0 : 1.0) withError:nil];
     }
 
-    performAction = !performAction;
+    performStrategy = !performStrategy;
 }
 @end

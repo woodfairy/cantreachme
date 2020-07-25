@@ -1,6 +1,6 @@
-#import "WDFCoversheetAction.h"
+#import "WDFCoversheetStrategy.h"
 
-@implementation WDFCoversheetAction 
+@implementation WDFCoversheetStrategy
 -(void)run {
     [[%c(SBCoverSheetPresentationManager) sharedInstance] setCoverSheetPresented:YES animated:YES withCompletion:nil];
 }
