@@ -23,9 +23,32 @@ void wdfTakeScreenshot() {
 
 void wdfToggleFleshlight() {
     if(!performAction) {
-        NSLog(@"flaslight won't be toggled");
+        NSLog(@"fleshlight won't be toggled");
     } else {
         [sharedFleshlight setFlashlightLevel: (sharedFleshlight.flashlightLevel > 0 ? 0.0 : 1.0) withError:nil];
+    }
+
+    performAction = !performAction;
+}
+
+void wdfToggleBluetooth() {
+    if(!performAction) {
+        NSLog(@"bluetooth won't be toggled");
+    } else {
+        BOOL isPowered = [[%c(BluetoothManager) sharedInstance] powered];
+        [[%c(BluetoothManager) sharedInstance] setPowered:!isPowered];
+        [[%c(BluetoothManager) sharedInstance] _powerChanged];
+    }
+
+    performAction = !performAction;
+}
+
+void wdfToggleWifi() {
+    if(!performAction) {
+        NSLog(@"wifi won't be toggled");
+    } else {
+        BOOL isPowered = [[%c(WFClient) sharedInstance] powered];
+        [[%c(WFClient) sharedInstance] setPowered:!isPowered];
     }
 
     performAction = !performAction;
@@ -97,6 +120,10 @@ void wdfToggleFleshlight() {
             [[%c(SBAirplaneModeController) sharedInstance] setInAirplaneMode:!isInAirplaneMode];
         } else if([wdfAction isEqual:@"fleshlight"]) {
             wdfToggleFleshlight();
+        } else if([wdfAction isEqual:@"bluetooth"]) {
+            wdfToggleBluetooth();
+        } else if([wdfAction isEqual:@"wifi"]) {
+            wdfToggleWifi();
         }
     }
 }
