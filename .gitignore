@@ -1,7 +1,7 @@
 .theos/
 .idea/
 
- Prefs/.DS_STORE
- Prefs/Resources/.DS_STORE
+ Prefs/.DS_Store
+ Prefs/Resources/.DS_Store
 
- .DS_STORE
+ .DS_Store
