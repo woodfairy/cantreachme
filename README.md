@@ -22,7 +22,7 @@
 CantReachMe provides an easy way to extend the tweak by your very own custom actions! And it's easy. You only need a few minutes to get started!
 Let's make an example for a strategy that opens the Notification Center.
 
- **Create a strategy**
+ **Create a strategy**<br>
 You first have to create a strategy inside *WDFReachabilityStrategy/*<br>
 We will create 2 files:<br>
  - WDFCoversheetStrategy.h (header file)
