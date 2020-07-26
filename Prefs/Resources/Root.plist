@@ -69,7 +69,7 @@
 			<key>label</key>
 			<string>Check out</string>
 			<key>footerText</key>
-			<string>for the latest and greates stuff!</string>
+			<string>for the latest and greatest stuff!</string>
 			<key>isStaticText</key>
 			<true/>
 		</dict>
@@ -117,7 +117,7 @@
 			<key>action</key>
 			<string>openNepetaTwitter</string>
 			<key>label</key>
-			<string>@NepetaDev for everythong</string>
+			<string>@NepetaDev for everything</string>
 		</dict>
 		<dict>
 			<key>cell</key>
