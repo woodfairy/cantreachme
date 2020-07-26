@@ -7,6 +7,7 @@
 #import "../WDFReachabilityStrategy/WDFFleshlightStrategy.h"
 #import "../WDFReachabilityStrategy/WDFBluetoothStrategy.h"
 #import "../WDFReachabilityStrategy/WDFWifiStrategy.h"
+#import "../WDFReachabilityStrategy/WDFLockStrategy.h"
 
 static WDFCoversheetStrategy *coversheetStrategy       = [[WDFCoversheetStrategy alloc] init];
 static WDFControlCenterStrategy *controlcenterStrategy = [[WDFControlCenterStrategy alloc] init];
@@ -16,6 +17,7 @@ static WDFAirplaneStrategy *airplaneStrategy           = [[WDFAirplaneStrategy a
 static WDFFleshlightStrategy *fleshlightStrategy       = [[WDFFleshlightStrategy alloc] init];
 static WDFBluetoothStrategy *bluetoothStrategy         = [[WDFBluetoothStrategy alloc] init];
 static WDFWifiStrategy *wifiStrategy                   = [[WDFWifiStrategy alloc] init];
+static WDFLockStrategy *lockStrategy                   = [[WDFLockStrategy alloc] init];
 
 @implementation WDFReachabilityController
 -(void)coversheetAction {
@@ -26,8 +28,8 @@ static WDFWifiStrategy *wifiStrategy                   = [[WDFWifiStrategy alloc
     [controlcenterStrategy run];
 }
 
--(void)screenshotAction:(SpringBoard *)sharedSpringboard throttle:(BOOL)throttle {
-    [screenshotStrategy run:sharedSpringboard throttle:throttle];
+-(void)screenshotAction:(SpringBoard *)sharedSpringboard {
+    [screenshotStrategy run:sharedSpringboard];
 }
 
 -(void)darkmodeAction {
@@ -38,15 +40,19 @@ static WDFWifiStrategy *wifiStrategy                   = [[WDFWifiStrategy alloc
     [airplaneStrategy run];
 }
 
--(void)fleshlightAction:(AVFlashlight *)sharedFleshlight throttle:(BOOL)throttle {
-    [fleshlightStrategy run:sharedFleshlight throttle:throttle];
+-(void)fleshlightAction:(AVFlashlight *)sharedFleshlight {
+    [fleshlightStrategy run:sharedFleshlight];
 }
 
--(void)bluetoothAction:(BOOL)throttle {
-    [bluetoothStrategy run:throttle];
+-(void)bluetoothAction {
+    [bluetoothStrategy run];
 }
 
--(void)wifiAction:(BOOL)throttle {
-    [wifiStrategy run:throttle];
+-(void)wifiAction {
+    [wifiStrategy run];
+}
+
+-(void)lockAction {
+    [lockStrategy run];
 }
 @end

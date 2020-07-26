@@ -7,5 +7,5 @@
 @end
 
 @interface WDFWifiStrategy : WDFReachabilityStrategy
--(void)run:(BOOL)throttle;
+-(void)run;
 @end
