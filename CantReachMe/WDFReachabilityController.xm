@@ -8,6 +8,7 @@
 #import "../WDFReachabilityStrategy/WDFBluetoothStrategy.h"
 #import "../WDFReachabilityStrategy/WDFWifiStrategy.h"
 #import "../WDFReachabilityStrategy/WDFLockStrategy.h"
+#import "../WDFReachabilityStrategy/WDFLowPowerStrategy.h"
 
 static WDFCoversheetStrategy *coversheetStrategy       = [[WDFCoversheetStrategy alloc] init];
 static WDFControlCenterStrategy *controlcenterStrategy = [[WDFControlCenterStrategy alloc] init];
@@ -18,6 +19,7 @@ static WDFFleshlightStrategy *fleshlightStrategy       = [[WDFFleshlightStrategy
 static WDFBluetoothStrategy *bluetoothStrategy         = [[WDFBluetoothStrategy alloc] init];
 static WDFWifiStrategy *wifiStrategy                   = [[WDFWifiStrategy alloc] init];
 static WDFLockStrategy *lockStrategy                   = [[WDFLockStrategy alloc] init];
+static WDFLowPowerStrategy *lpmStrategy                = [[WDFLowPowerStrategy alloc] init];
 
 @implementation WDFReachabilityController
 -(void)coversheetAction {
@@ -54,5 +56,9 @@ static WDFLockStrategy *lockStrategy                   = [[WDFLockStrategy alloc
 
 -(void)lockAction {
     [lockStrategy run];
+}
+
+-(void)lpmAction {
+    [lpmStrategy run];
 }
 @end
