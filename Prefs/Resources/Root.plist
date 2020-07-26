@@ -69,7 +69,7 @@
 			<key>label</key>
 			<string>Check out</string>
 			<key>footerText</key>
-			<string>This tweak is entirely written in Vim!</string>
+			<string>for the latest and greates stuff!</string>
 			<key>isStaticText</key>
 			<true/>
 		</dict>
@@ -101,7 +101,7 @@
 			<key>action</key>
 			<string>openLittenTwitter</string>
 			<key>label</key>
-			<string>@Litteeen</string>
+			<string>@Litteeen for the preference bundle</string>
 		</dict>
 		<dict>
 			<key>cell</key>
@@ -109,7 +109,7 @@
 			<key>action</key>
 			<string>openConstanzeTwitter</string>
 			<key>label</key>
-			<string>@JulzTDG</string>
+			<string>@JulzTDG for some design inspiration</string>
 		</dict>
 		<dict>
 			<key>cell</key>
@@ -117,9 +117,24 @@
 			<key>action</key>
 			<string>openNepetaTwitter</string>
 			<key>label</key>
-			<string>@NepetaDev</string>
+			<string>@NepetaDev for everythong</string>
 		</dict>
-
+		<dict>
+			<key>cell</key>
+			<string>PSButtonCell</string>
+			<key>action</key>
+			<string>openTakiTwitter</string>
+			<key>label</key>
+			<string>@74k1_ for the logo design</string>
+		</dict>
+		<dict>
+			<key>cell</key>
+			<string>PSButtonCell</string>
+			<key>action</key>
+			<string>openStrykerTwitter</string>
+			<key>label</key>
+			<string>@lIx_Stryker_xIl for patiently testing</string>
+		</dict>
 	</array>
 	<key>title</key>
 	<string>CantReachMe</string>

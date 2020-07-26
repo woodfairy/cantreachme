@@ -25,4 +25,6 @@
 -(void)openLittenTwitter;
 -(void)openConstanzeTwitter;
 -(void)openNepetaTwitter;
+-(void)openTakiTwitter;
+-(void)openStrykerTwitter;
 @end
