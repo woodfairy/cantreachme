@@ -10,7 +10,7 @@ SpringBoard *sb                = nil;
 AVFlashlight *sharedFleshlight = nil;
 WDFReachabilityController *wdfReachabilityController;
 
-void runStrategyForAction(NSString * action, WDFReachabilityController * controller, BOOL throttle) {
+void runStrategyForAction(NSString * action, WDFReachabilityController * controller) {
     if(!controller) return;
     SEL selector = NSSelectorFromString([action stringByAppendingString:@"Action"]);
     IMP imp      = [controller methodForSelector:selector];
@@ -54,7 +54,7 @@ void runStrategyForAction(NSString * action, WDFReachabilityController * control
 %hook SBReachabilityManager
 -(void)_activateReachability:(id)arg1 {
     NSLog(@"_activateReachability");
-    [self wdfPerformReachabilityAction:YES];
+    [self wdfPerformReachabilityAction];
     if(!wdfTweakEnabled) {
         %orig;
     }
@@ -62,18 +62,16 @@ void runStrategyForAction(NSString * action, WDFReachabilityController * control
 
 -(void)toggleReachability {
     NSLog(@"toggleReachability");
-    [self wdfPerformReachabilityAction:NO];
+    [self wdfPerformReachabilityAction];
     if(!wdfTweakEnabled) {
         %orig;
     }
 }
 
 %new
--(void)wdfPerformReachabilityAction:(BOOL)throttle {
+-(void)wdfPerformReachabilityAction {
     NSLog(@"wdfPerformReachabilityAction");
-    BOOL isNotched = [UIDevice.currentDevice isNotched];
-    NSLog(isNotched ? @"YESSS " : @"NOOO");
-    runStrategyForAction(wdfAction, wdfReachabilityController, throttle);
+    runStrategyForAction(wdfAction, wdfReachabilityController);
 }
 %end
 %end // group CantReachMe
