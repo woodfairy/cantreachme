@@ -54,6 +54,8 @@ Once we have done this, we will take care of the implementation in *WDFCovershee
 	    [[%c(SBCoverSheetPresentationManager) sharedInstance] setCoverSheetPresented:YES animated:YES withCompletion:nil];
     }
     @end
+
+ **Extend the controller**<br>
 As you can see, we have now implemented the "run" method. In order for it to work, we will need to extend the *WDFReachabilityController* located in *CantReachMe/*
 
 First, we'll import the header file:
@@ -72,6 +74,8 @@ Now, we just need to create a new method:
 Don't forget to add the method to the header file *WDFReachabilityController.h*
 
     -(void)coversheetAction;
+
+ **Add to preferences**<br>
 The last thing left is to add the new strategy to our preferences. You can find the plist file in *Prefs/Resources/Root.plist*<br>
 Add a new key (validTitles) and value (validValues) under the *crm_action* entry:
 
