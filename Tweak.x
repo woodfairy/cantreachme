@@ -9,6 +9,21 @@ SpringBoard *sb                = nil;
 AVFlashlight *sharedFleshlight = nil;
 WDFReachabilityController *wdfReachabilityController;
 
+void runStrategyForAction(NSString * action, WDFReachabilityController * controller, BOOL throttle) {
+    if(!controller) return;
+    if([action isEqual:@"fleshlight"]) {
+        [controller fleshlightAction:sharedFleshlight throttle:throttle];
+    } else if([action isEqual:@"screenshot"]) {
+        [controller screenshotAction:sb throttle:throttle];
+    } else {
+        SEL selector = NSSelectorFromString([action stringByAppendingString:@"Action"]);
+        IMP imp      = [controller methodForSelector:selector];
+        void (*func)(id, SEL) = (void *)imp;
+        func(controller, selector);
+    }
+    
+}
+
 %group CantReachMeSB
 %hook SpringBoard
 -(void)applicationDidFinishLaunching:(id)arg1 {
@@ -55,25 +70,7 @@ WDFReachabilityController *wdfReachabilityController;
 %new
 -(void)wdfPerformReachabilityAction:(BOOL)throttle {
     NSLog(@"wdfPerformReachabilityAction");
-    if(wdfTweakEnabled) {
-	    if([wdfAction isEqual:@"coversheet"]) {
-            [wdfReachabilityController coversheetAction];
-	    } else if ([wdfAction isEqual:@"controlcenter"]) {
-            [wdfReachabilityController controlcenterAction];
-	    } else if ([wdfAction isEqual:@"screenshot"]) {
-            [wdfReachabilityController screenshotAction:sb throttle:throttle];
-        } else if ([wdfAction isEqual:@"darkmode"]) {
-            [wdfReachabilityController darkmodeAction];
-        } else if([wdfAction isEqual:@"airplane"]) {
-            [wdfReachabilityController airplaneAction];
-        } else if([wdfAction isEqual:@"fleshlight"]) {
-            [wdfReachabilityController fleshlightAction:sharedFleshlight throttle:throttle];
-        } else if([wdfAction isEqual:@"bluetooth"]) {
-            [wdfReachabilityController bluetoothAction:throttle];
-        } else if([wdfAction isEqual:@"wifi"]) {
-            [wdfReachabilityController wifiAction:throttle];
-        }
-    }
+    runStrategyForAction(wdfAction, wdfReachabilityController, throttle);
 }
 %end
 %end // group CantReachMe
