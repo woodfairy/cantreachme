@@ -52,15 +52,13 @@ void runStrategyForAction(NSString * action, WDFReachabilityController * control
 %hook SBReachabilityManager
 -(void)_activateReachability:(id)arg1 {
     NSLog(@"_activateReachability");
-    if(performAction) {
-        if(wdfTweakEnabled) {
+    if(wdfTweakEnabled) {
+        if(performAction)
             [self wdfPerformReachabilityAction];
-        } else {
-            %orig;
-        }
+        performAction = !performAction;
+    } else {
+        %orig;
     }
-
-    performAction = !performAction;
 }
 
 -(void)toggleReachability {
