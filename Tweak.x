@@ -6,34 +6,7 @@ static NSString *wdfAction;
 
 BOOL isSpringboard;
 BOOL performAction = YES;
-SpringBoard *sb                = nil;
-AVFlashlight *sharedFleshlight = nil;
 WDFReachabilityController *wdfReachabilityController;
-
-
-
-%group CantReachMeSB
-%hook SpringBoard
--(void)applicationDidFinishLaunching:(id)arg1 {
-    %orig;
-    sb = self;
-    return;
-}
-%end
-%end // group CantReachMeSB
-
-
-%group CantReachMeAVFleshlight
-%hook AVFlashlight
--(id)init {
-    if(!sharedFleshlight) 
-        sharedFleshlight = %orig;
-
-    return sharedFleshlight;
-}
-%end
-%end // group CantReachMeAVFlashlight
-
 
 %group CantReachMe
 %hook SBReachabilityManager
@@ -73,8 +46,6 @@ void wdfReloadPrefs() {
 }
 
 %ctor {
-    wdfReachabilityController = [[WDFReachabilityController alloc] init];
-
     NSArray *blacklist = @[
         @"backboardd",
         @"duetexpertd",
@@ -121,11 +92,8 @@ void wdfReloadPrefs() {
     }
 
     if (!shouldLoad) return;
-    if (isSpringboard) %init(CantReachMeSB);
-
+    wdfReachabilityController = [[WDFReachabilityController alloc] init];
     wdfReloadPrefs();
     CFNotificationCenterAddObserver(CFNotificationCenterGetDarwinNotifyCenter(), NULL, wdfReloadPrefs, CFSTR("0xcc.woodfairy.cantreachme/ReloadPrefs"), NULL, CFNotificationSuspensionBehaviorCoalesce);
-
     %init(CantReachMe)
-    %init(CantReachMeAVFleshlight)
 }
