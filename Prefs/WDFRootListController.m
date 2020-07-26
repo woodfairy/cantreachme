@@ -181,4 +181,18 @@
 	completionHandler:nil];
 }
 
+-(void)openTakiTwitter {
+    [[UIApplication sharedApplication]
+	openURL: [NSURL URLWithString:@"https://twitter.com/74k1_"]
+	options: @{}
+	completionHandler:nil];
+}
+
+-(void)openStrykerTwitter {
+    [[UIApplication sharedApplication]
+	openURL: [NSURL URLWithString:@"hhttps://twitter.com/lIx_Stryker_xIl"]
+	options: @{}
+	completionHandler:nil];
+}
+
 @end
