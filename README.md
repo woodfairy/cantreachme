@@ -23,12 +23,12 @@ CantReachMe provides an easy way to extend the tweak by your very own custom act
 Let's make an example for a strategy that opens the Notification Center.
 
  **Create a strategy**
-You first have to create a strategy inside *WDFReachabilityStrategy/*
-We will create 2 files:
+You first have to create a strategy inside *WDFReachabilityStrategy/*<br>
+We will create 2 files:<br>
  - WDFCoversheetStrategy.h (header file)
  - WDFCoversheetStrategy.xm
 
-That's basically all we need to get started.
+That's basically all we need to get started.<br>
 First we define an interface:
 
     #import  "WDFReachabilityStrategy.h"
@@ -36,8 +36,8 @@ First we define an interface:
     @interface WDFCoversheetStrategy : WDFReachabilityStrategy
     -(void)run;
     @end
-The interface WDFCoversheetStrategy inherits from WDFReachabilityStrategy which you have to import.
-You basically only need the method "run". There, the code for your custom action will live.
+The interface WDFCoversheetStrategy inherits from WDFReachabilityStrategy which you have to import.<br>
+You basically only need the method "run". There, the code for your custom action will live.<br><br>
 
 As we want to open the Notification Center, we will have to add another interface to our header file:
 
@@ -72,7 +72,7 @@ Now, we just need to create a new method:
 Don't forget to add the method to the header file *WDFReachabilityController.h*
 
     -(void)coversheetAction;
-The last thing left is to add the new strategy to our preferences. You can find the plist file in *Prefs/Resources/Root.plist*
+The last thing left is to add the new strategy to our preferences. You can find the plist file in *Prefs/Resources/Root.plist*<br>
 Add a new key (validTitles) and value (validValues) under the *crm_action* entry:
 
     <dict>
