@@ -23,7 +23,7 @@
 CantReachMe provides an easy way to extend the tweak by your very own custom actions! And it's easy. You only need a few minutes to get started!
 Let's make an example for a strategy that opens the Notification Center.<br>
 
-#### Create a strategy
+### Create a strategy
 You first have to create a strategy inside *WDFReachabilityStrategy/*<br>
 We will create 2 files:<br>
  - WDFCoversheetStrategy.h (header file)
@@ -58,7 +58,7 @@ Once we have done this, we will take care of the implementation in *WDFCovershee
 As you can see, we have now implemented the "run" method. <br>
 Now we need to add the headers of our new strategy to the Strategies headers which are imported from the controller later.<br>
 It is named *WDFReachabilityStrategies.h*<br><br>
-#### Extend the controller
+### Extend the controller
 In order for it to work, we will need to extend the *WDFReachabilityController* located in *CantReachMe/*<br>
 First, we will initialize the strategy:
 
@@ -70,8 +70,7 @@ Now, we just need to add an entry to the NSDictionary containing all of our stra
             ...[more]
         @"coversheet": coversheetStrategy,
     };
-
-#### Add to preferences
+### Add to preferences
 The last thing left is to add the new strategy to our preferences. You can find the plist file in *Prefs/Resources/Root.plist*<br>
 Add a new key (validTitles) and value (validValues) under the *crm_action* entry:
 
