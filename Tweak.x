@@ -11,13 +11,17 @@ WDFReachabilityController *wdfReachabilityController;
 
 void runStrategyForAction(NSString * action, WDFReachabilityController * controller, BOOL throttle) {
     if(!controller) return;
+    SEL selector = NSSelectorFromString([action stringByAppendingString:@"Action"]);
+    IMP imp      = [controller methodForSelector:selector];
     if([action isEqual:@"fleshlight"]) {
         [controller fleshlightAction:sharedFleshlight throttle:throttle];
     } else if([action isEqual:@"screenshot"]) {
         [controller screenshotAction:sb throttle:throttle];
+    } else if([action isEqual:@"wifi"]) {
+        [controller wifiAction:throttle];
+    } else if([action isEqual:@"bluetooth"]) {
+        [controller bluetoothAction:throttle];
     } else {
-        SEL selector = NSSelectorFromString([action stringByAppendingString:@"Action"]);
-        IMP imp      = [controller methodForSelector:selector];
         void (*func)(id, SEL) = (void *)imp;
         func(controller, selector);
     }
