@@ -9,6 +9,8 @@
 #import "../WDFReachabilityStrategy/WDFWifiStrategy.h"
 #import "../WDFReachabilityStrategy/WDFLockStrategy.h"
 #import "../WDFReachabilityStrategy/WDFLowPowerStrategy.h"
+#import "../WDFReachabilityStrategy/WDFRecentStrategy.h"
+#import "../WDFReachabilityStrategy/WDFOrientationStrategy.h"
 
 static WDFCoversheetStrategy *coversheetStrategy       = [[WDFCoversheetStrategy alloc] init];
 static WDFControlCenterStrategy *controlcenterStrategy = [[WDFControlCenterStrategy alloc] init];
@@ -20,6 +22,8 @@ static WDFBluetoothStrategy *bluetoothStrategy         = [[WDFBluetoothStrategy 
 static WDFWifiStrategy *wifiStrategy                   = [[WDFWifiStrategy alloc] init];
 static WDFLockStrategy *lockStrategy                   = [[WDFLockStrategy alloc] init];
 static WDFLowPowerStrategy *lpmStrategy                = [[WDFLowPowerStrategy alloc] init];
+static WDFRecentStrategy *recentStrategy               = [[WDFRecentStrategy alloc] init];
+static WDFOrientationStrategy *orientationStrategy     = [[WDFOrientationStrategy alloc] init];
 
 @implementation WDFReachabilityController
 -(void)coversheetAction {
@@ -60,5 +64,13 @@ static WDFLowPowerStrategy *lpmStrategy                = [[WDFLowPowerStrategy a
 
 -(void)lpmAction {
     [lpmStrategy run];
+}
+
+-(void)recentAction {
+    [recentStrategy run];
+}
+
+-(void)orientationAction {
+    [orientationStrategy run];
 }
 @end

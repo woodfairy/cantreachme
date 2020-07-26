@@ -11,4 +11,6 @@
 -(void)bluetoothAction;
 -(void)wifiAction;
 -(void)lockAction;
+-(void)recentAction;
+-(void)orientationAction;
 @end
