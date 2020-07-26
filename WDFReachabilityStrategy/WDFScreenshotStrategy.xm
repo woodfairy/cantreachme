@@ -2,7 +2,8 @@
 
 
 @implementation WDFScreenshotStrategy
--(void) run:(SpringBoard *)sharedSpringboard {
-    [sharedSpringboard takeScreenshot];
+-(void)run {
+    [((SpringBoard *)[%c(SpringBoard) sharedApplication]) takeScreenshot];
+    //[sharedSpringboard takeScreenshot];
 }
 @end

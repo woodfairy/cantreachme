@@ -1,17 +1,5 @@
 #import "WDFReachabilityController.h"
-#import "../WDFReachabilityStrategy/WDFCoversheetStrategy.h"
-#import "../WDFReachabilityStrategy/WDFControlCenterStrategy.h"
-#import "../WDFReachabilityStrategy/WDFScreenshotStrategy.h"
-#import "../WDFReachabilityStrategy/WDFDarkmodeStrategy.h"
-#import "../WDFReachabilityStrategy/WDFAirplaneStrategy.h"
-#import "../WDFReachabilityStrategy/WDFFleshlightStrategy.h"
-#import "../WDFReachabilityStrategy/WDFBluetoothStrategy.h"
-#import "../WDFReachabilityStrategy/WDFWifiStrategy.h"
-#import "../WDFReachabilityStrategy/WDFLockStrategy.h"
-#import "../WDFReachabilityStrategy/WDFLowPowerStrategy.h"
-#import "../WDFReachabilityStrategy/WDFRecentStrategy.h"
-#import "../WDFReachabilityStrategy/WDFOrientationStrategy.h"
-#import "../WDFReachabilityStrategy/WDFPlaybackStrategy.h"
+#import "../WDFReachabilityStrategy/WDFReachabilityStrategies.h"
 
 static WDFCoversheetStrategy *coversheetStrategy       = [[WDFCoversheetStrategy alloc] init];
 static WDFControlCenterStrategy *controlcenterStrategy = [[WDFControlCenterStrategy alloc] init];
@@ -27,56 +15,26 @@ static WDFRecentStrategy *recentStrategy               = [[WDFRecentStrategy all
 static WDFOrientationStrategy *orientationStrategy     = [[WDFOrientationStrategy alloc] init];
 static WDFPlaybackStrategy *playbackStrategy           = [[WDFPlaybackStrategy alloc] init];
 
+static NSDictionary *strategies = @{
+    @"coversheet": coversheetStrategy,
+    @"controlcenter": controlcenterStrategy,
+    @"screenshot": screenshotStrategy,
+    @"darkmode": darkmodeStrategy,
+    @"airplane": airplaneStrategy,
+    @"fleshlight": fleshlightStrategy,
+    @"bluetooth": bluetoothStrategy,
+    @"wifi":  wifiStrategy,
+    @"lock": lockStrategy,
+    @"lpm": lpmStrategy,
+    @"recent": recentStrategy,
+    @"orientation": orientationStrategy,
+    @"playback": playbackStrategy
+};
+
 @implementation WDFReachabilityController
--(void)coversheetAction {
-    [coversheetStrategy run];
-}
-
--(void)controlcenterAction {
-    [controlcenterStrategy run];
-}
-
--(void)screenshotAction:(SpringBoard *)sharedSpringboard {
-    [screenshotStrategy run:sharedSpringboard];
-}
-
--(void)darkmodeAction {
-    [darkmodeStrategy run];
-}
-
--(void)airplaneAction {
-    [airplaneStrategy run];
-}
-
--(void)fleshlightAction:(AVFlashlight *)sharedFleshlight {
-    [fleshlightStrategy run:sharedFleshlight];
-}
-
--(void)bluetoothAction {
-    [bluetoothStrategy run];
-}
-
--(void)wifiAction {
-    [wifiStrategy run];
-}
-
--(void)lockAction {
-    [lockStrategy run];
-}
-
--(void)lpmAction {
-    [lpmStrategy run];
-}
-
--(void)recentAction {
-    [recentStrategy run];
-}
-
--(void)orientationAction {
-    [orientationStrategy run];
-}
-
--(void)playbackAction {
-    [playbackStrategy run];
+-(void)runStrategyForAction:(NSString *)action {
+    WDFReachabilityStrategy *strategy = [strategies valueForKey:action];
+    if(!strategy) return;
+    [strategy run];
 }
 @end
