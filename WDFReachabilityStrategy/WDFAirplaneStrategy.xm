@@ -2,7 +2,8 @@
 
 @implementation WDFAirplaneStrategy
 -(void) run {
-    BOOL isInAirplaneMode = [[%c(SBAirplaneModeController) sharedInstance] isInAirplaneMode];
-    [[%c(SBAirplaneModeController) sharedInstance] setInAirplaneMode:!isInAirplaneMode];
+    SBAirplaneModeController *controller = [%c(SBAirplaneModeController) sharedInstance];
+    BOOL isInAirplaneMode = [controller isInAirplaneMode];
+    [controller setInAirplaneMode:!isInAirplaneMode];
 }
 @end

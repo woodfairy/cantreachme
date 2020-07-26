@@ -3,7 +3,8 @@
 
 @implementation WDFWifiStrategy
 -(void) run {
-    BOOL isPowered = [[%c(WFClient) sharedInstance] powered];
-    [[%c(WFClient) sharedInstance] setPowered:!isPowered];
+    WFClient *wfClient = [%c(WFClient) sharedInstance];
+    BOOL isPowered = [wfClient powered];
+    [wfClient setPowered:!isPowered];
 }
 @end

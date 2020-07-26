@@ -44,6 +44,8 @@
 				<string>WiFi</string>
 				<string>Lock Device</string>
 				<string>Low Power Mode</string>
+				<string>Recent App</string>
+				<string>Orientation Lock</string>
 			</array>
 			<key>validValues</key>
 			<array>
@@ -57,6 +59,8 @@
 				<string>wifi</string>
 				<string>lock</string>
 				<string>lpm</string>
+				<string>recent</string>
+				<string>orientation</string>
 			</array>
 		</dict>
 		<dict>

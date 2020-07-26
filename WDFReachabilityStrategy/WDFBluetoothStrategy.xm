@@ -2,8 +2,9 @@
 
 @implementation WDFBluetoothStrategy
 -(void) run {
-    BOOL isPowered = [[%c(BluetoothManager) sharedInstance] powered];
-    [[%c(BluetoothManager) sharedInstance] setPowered:!isPowered];
-    [[%c(BluetoothManager) sharedInstance] _powerChanged];
+    BluetoothManager *bluetoothManager = [%c(BluetoothManager) sharedInstance];
+    BOOL isPowered = [bluetoothManager powered];
+    [bluetoothManager setPowered:!isPowered];
+    [bluetoothManager _powerChanged];
 }
 @end
