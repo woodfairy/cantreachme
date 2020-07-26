@@ -55,28 +55,22 @@ Once we have done this, we will take care of the implementation in *WDFCovershee
 	    [[%c(SBCoverSheetPresentationManager) sharedInstance] setCoverSheetPresented:YES animated:YES withCompletion:nil];
     }
     @end
-
- **Extend the controller**<br>
-As you can see, we have now implemented the "run" method. In order for it to work, we will need to extend the *WDFReachabilityController* located in *CantReachMe/*
-
-First, we'll import the header file:
-
-    #import  "../WDFReachabilityStrategy/WDFCoversheetStrategy.h"
-
-Now, we will initialize the strategy:
+As you can see, we have now implemented the "run" method. <br>
+Now we need to add the headers of our new strategy to the Strategies headers which are imported from the controller later.<br>
+It is named *WDFReachabilityStrategies.h*<br><br>
+**Extend the controller**<br>
+In order for it to work, we will need to extend the *WDFReachabilityController* located in *CantReachMe/*<br>
+First, we will initialize the strategy:
 
     static WDFCoversheetStrategy *coversheetStrategy = [[WDFCoversheetStrategy alloc] init];
 
-Now, we just need to create a new method:
+Now, we just need to add an entry to the NSDictionary containing all of our strategies:
 
-    -(void)coversheetAction {
-	    [coversheetStrategy run];
-    }
-Don't forget to add the method to the header file *WDFReachabilityController.h*
-
-    -(void)coversheetAction;
-
- **Add to preferences**<br>
+    static NSDictionary *strategies = @{
+            ...[more]
+        @"coversheet": coversheetStrategy,
+    };
+**Add to preferences**<br>
 The last thing left is to add the new strategy to our preferences. You can find the plist file in *Prefs/Resources/Root.plist*<br>
 Add a new key (validTitles) and value (validValues) under the *crm_action* entry:
 
@@ -96,7 +90,7 @@ Add a new key (validTitles) and value (validValues) under the *crm_action* entry
 	    <key>validTitles</key>
 	    <array>
 			    ...[more]
-		    <string>Notification Center</string>
+            <string>Notification Center</string>
 	    </array>
 	    <key>validValues</key>
 	    <array>
@@ -104,7 +98,7 @@ Add a new key (validTitles) and value (validValues) under the *crm_action* entry
             <string>coversheet</string>
 	    </array>
     </dict>
-It is very important that the *value* entry matches the newly created method name of the *WDFReachabilityController*<br>
+It is very important that the *value* entry matches the key of the NSDictionary in the *WDFReachabilityController*<br>
 In our case:<br>
 **coversheet**Action<br>
 gets the value <br>
