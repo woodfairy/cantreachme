@@ -10,20 +10,7 @@ SpringBoard *sb                = nil;
 AVFlashlight *sharedFleshlight = nil;
 WDFReachabilityController *wdfReachabilityController;
 
-void runStrategyForAction(NSString * action, WDFReachabilityController * controller) {
-    if(!controller) return;
-    if([action isEqual:@"fleshlight"]) {
-        [controller fleshlightAction:sharedFleshlight];
-    } else if([action isEqual:@"screenshot"]) {
-        [controller screenshotAction:sb];
-    } else {
-        SEL selector          = NSSelectorFromString([action stringByAppendingString:@"Action"]);
-        IMP imp               = [controller methodForSelector:selector];
-        void (*func)(id, SEL) = (void *)imp;
-        func(controller, selector);
-    }
-    
-}
+
 
 %group CantReachMeSB
 %hook SpringBoard
@@ -72,7 +59,8 @@ void runStrategyForAction(NSString * action, WDFReachabilityController * control
 %new
 -(void)wdfPerformReachabilityAction {
     NSLog(@"wdfPerformReachabilityAction");
-    runStrategyForAction(wdfAction, wdfReachabilityController);
+    //runStrategyForAction(wdfAction, wdfReachabilityController);
+    [wdfReachabilityController runStrategyForAction:wdfAction];
 }
 %end
 %end // group CantReachMe

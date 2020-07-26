@@ -12,5 +12,5 @@
 @end
 
 @interface WDFScreenshotStrategy : WDFReachabilityStrategy
--(void)run:(SpringBoard *)sharedSpringboard;
+-(void)run;
 @end
