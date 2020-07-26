@@ -5,6 +5,7 @@ static bool wdfTweakEnabled;
 static NSString *wdfAction;
 
 BOOL isSpringboard;
+BOOL performAction = YES;
 SpringBoard *sb                = nil;
 AVFlashlight *sharedFleshlight = nil;
 WDFReachabilityController *wdfReachabilityController;
@@ -29,7 +30,6 @@ void runStrategyForAction(NSString * action, WDFReachabilityController * control
 -(void)applicationDidFinishLaunching:(id)arg1 {
     %orig;
     sb = self;
-    NSLog(@"SpringBoard applicationDidFinishLaunching runs");
     return;
 }
 %end
@@ -39,9 +39,8 @@ void runStrategyForAction(NSString * action, WDFReachabilityController * control
 %group CantReachMeAVFleshlight
 %hook AVFlashlight
 -(id)init {
-    if(!sharedFleshlight) {
+    if(!sharedFleshlight) 
         sharedFleshlight = %orig;
-    }
 
     return sharedFleshlight;
 }
@@ -53,18 +52,20 @@ void runStrategyForAction(NSString * action, WDFReachabilityController * control
 %hook SBReachabilityManager
 -(void)_activateReachability:(id)arg1 {
     NSLog(@"_activateReachability");
-    [self wdfPerformReachabilityAction];
-    if(!wdfTweakEnabled) {
+    if(wdfTweakEnabled && performAction) {
+        [self wdfPerformReachabilityAction];
+        performAction = !performAction;
+    } else {
         %orig;
     }
 }
 
 -(void)toggleReachability {
     NSLog(@"toggleReachability");
-    [self wdfPerformReachabilityAction];
-    if(!wdfTweakEnabled) {
+    if(wdfTweakEnabled)
+        [self wdfPerformReachabilityAction];
+    else
         %orig;
-    }
 }
 
 %new
@@ -102,9 +103,8 @@ void wdfReloadPrefs() {
     NSString *processName = [NSProcessInfo processInfo].processName;
 
     for (NSString *process in blacklist) {
-        if ([process isEqualToString:processName]) {
+        if ([process isEqualToString:processName])
             return;
-        }
     }
 
     isSpringboard = [@"SpringBoard" isEqualToString:processName];
@@ -126,14 +126,12 @@ void wdfReloadPrefs() {
                         || [processName isEqualToString:@"InCallService"]
                         || [processName isEqualToString:@"MessagesNotificationViewService"]
                         || [executablePath rangeOfString:@".appex/"].location != NSNotFound;
-            if ((!isFileProvider && isApplication && !skip) || isSpringboard) {
+            if ((!isFileProvider && isApplication && !skip) || isSpringboard)
                 shouldLoad = YES;
-            }
         }
     }
 
     if (!shouldLoad) return;
-
     if (isSpringboard) %init(CantReachMeSB);
 
     wdfReloadPrefs();
