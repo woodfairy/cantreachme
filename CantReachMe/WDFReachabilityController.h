@@ -13,4 +13,5 @@
 -(void)lockAction;
 -(void)recentAction;
 -(void)orientationAction;
+-(void)playbackAction;
 @end

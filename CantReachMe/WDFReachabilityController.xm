@@ -11,6 +11,7 @@
 #import "../WDFReachabilityStrategy/WDFLowPowerStrategy.h"
 #import "../WDFReachabilityStrategy/WDFRecentStrategy.h"
 #import "../WDFReachabilityStrategy/WDFOrientationStrategy.h"
+#import "../WDFReachabilityStrategy/WDFPlaybackStrategy.h"
 
 static WDFCoversheetStrategy *coversheetStrategy       = [[WDFCoversheetStrategy alloc] init];
 static WDFControlCenterStrategy *controlcenterStrategy = [[WDFControlCenterStrategy alloc] init];
@@ -24,6 +25,7 @@ static WDFLockStrategy *lockStrategy                   = [[WDFLockStrategy alloc
 static WDFLowPowerStrategy *lpmStrategy                = [[WDFLowPowerStrategy alloc] init];
 static WDFRecentStrategy *recentStrategy               = [[WDFRecentStrategy alloc] init];
 static WDFOrientationStrategy *orientationStrategy     = [[WDFOrientationStrategy alloc] init];
+static WDFPlaybackStrategy *playbackStrategy           = [[WDFPlaybackStrategy alloc] init];
 
 @implementation WDFReachabilityController
 -(void)coversheetAction {
@@ -72,5 +74,9 @@ static WDFOrientationStrategy *orientationStrategy     = [[WDFOrientationStrateg
 
 -(void)orientationAction {
     [orientationStrategy run];
+}
+
+-(void)playbackAction {
+    [playbackStrategy run];
 }
 @end
