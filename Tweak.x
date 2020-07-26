@@ -1,6 +1,5 @@
 #import "Tweak.h"
 #import "CantReachMe/WDFReachabilityController.h"
-#import "UIDevice+notchedDevice.h"
 
 static bool wdfTweakEnabled;
 static NSString *wdfAction;
@@ -12,13 +11,13 @@ WDFReachabilityController *wdfReachabilityController;
 
 void runStrategyForAction(NSString * action, WDFReachabilityController * controller) {
     if(!controller) return;
-    SEL selector = NSSelectorFromString([action stringByAppendingString:@"Action"]);
-    IMP imp      = [controller methodForSelector:selector];
     if([action isEqual:@"fleshlight"]) {
         [controller fleshlightAction:sharedFleshlight];
     } else if([action isEqual:@"screenshot"]) {
         [controller screenshotAction:sb];
     } else {
+        SEL selector          = NSSelectorFromString([action stringByAppendingString:@"Action"]);
+        IMP imp               = [controller methodForSelector:selector];
         void (*func)(id, SEL) = (void *)imp;
         func(controller, selector);
     }
