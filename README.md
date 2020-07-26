@@ -15,6 +15,7 @@
  - Low Power Mode
  - Recent App (swipe left on bottom edge)
  - Orientation Lock
+ - Play/Pause Media
 
 
 ### Making your own Strategy
@@ -100,7 +101,7 @@ Add a new key (validTitles) and value (validValues) under the *crm_action* entry
 	    <key>validValues</key>
 	    <array>
 			    ...[more]
-			<string>coversheet</string>
+            <string>coversheet</string>
 	    </array>
     </dict>
 It is very important that the *value* entry matches the newly created method name of the *WDFReachabilityController*<br>

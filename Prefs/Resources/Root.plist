@@ -4,7 +4,16 @@
 <dict>
 	<key>items</key>
 	<array>
-	
+		<dict>
+			<key>cell</key>
+			<string>PSGroupCell</string>
+			<key>label</key>
+			<string></string>
+			<key>footerText</key>
+			<string>No respring is needed for settings to apply</string>
+			<key>isStaticText</key>
+			<true/>
+		</dict>
 		<dict>
 			<key>cell</key>
 			<string>PSSwitchCell</string>
@@ -46,7 +55,7 @@
 				<string>Low Power Mode</string>
 				<string>Recent App</string>
 				<string>Orientation Lock</string>
-				<string>Play / Pause Media</string>
+				<string>Play/Pause Media</string>
 			</array>
 			<key>validValues</key>
 			<array>
