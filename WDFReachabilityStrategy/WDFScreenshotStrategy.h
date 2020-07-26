@@ -8,8 +8,9 @@
 @interface SpringBoard
 -(void)takeScreenshot;
 -(void)takeScreenshotAndEdit:(BOOL)arg1;
+-(void)_simulateLockButtonPress;
 @end
 
 @interface WDFScreenshotStrategy : WDFReachabilityStrategy
--(void)run:(SpringBoard *)sharedSpringboard throttle:(BOOL)throttle;
+-(void)run:(SpringBoard *)sharedSpringboard;
 @end

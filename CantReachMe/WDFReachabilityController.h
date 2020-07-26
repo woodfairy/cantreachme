@@ -4,10 +4,11 @@
 @interface WDFReachabilityController : NSObject
 -(void)coversheetAction;
 -(void)controlcenterAction;
--(void)screenshotAction:(SpringBoard *)sharedSpringboard throttle:(BOOL)throttle;
+-(void)screenshotAction:(SpringBoard *)sharedSpringboard;
 -(void)darkmodeAction;
 -(void)airplaneAction;
--(void)fleshlightAction:(AVFlashlight *)sharedFleshlight throttle:(BOOL)throttle;
--(void)bluetoothAction:(BOOL)throttle;
--(void)wifiAction:(BOOL)throttle;
+-(void)fleshlightAction:(AVFlashlight *)sharedFleshlight;
+-(void)bluetoothAction;
+-(void)wifiAction;
+-(void)lockAction;
 @end

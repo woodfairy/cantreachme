@@ -7,5 +7,5 @@
 @end
 
 @interface WDFFleshlightStrategy : WDFReachabilityStrategy
--(void)run:(AVFlashlight *)sharedFleshlight throttle:(BOOL)throttle;
+-(void)run:(AVFlashlight *)sharedFleshlight;
 @end

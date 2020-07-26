@@ -8,5 +8,5 @@
 @end
 
 @interface WDFBluetoothStrategy : WDFReachabilityStrategy
--(void)run:(BOOL)throttle;
+-(void)run;
 @end

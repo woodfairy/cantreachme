@@ -42,6 +42,7 @@
 				<string>Flashlight</string>
 				<string>Bluetooth</string>
 				<string>WiFi</string>
+				<string>Lock Device</string>
 			</array>
 			<key>validValues</key>
 			<array>
@@ -53,6 +54,7 @@
 				<string>fleshlight</string>
 				<string>bluetooth</string>
 				<string>wifi</string>
+				<string>lock</string>
 			</array>
 		</dict>
 		<dict>
