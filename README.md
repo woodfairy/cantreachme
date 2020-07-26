@@ -99,9 +99,7 @@ Add a new key (validTitles) and value (validValues) under the *crm_action* entry
 	    </array>
     </dict>
 It is very important that the *value* entry matches the key of the NSDictionary in the *WDFReachabilityController*<br>
-In our case:<br>
-**coversheet**Action<br>
-gets the value <br>
+In our case:
 **coversheet**<br><br>
 
 That's it! Now you have succesfully added a new action! Feel free to contribute!
