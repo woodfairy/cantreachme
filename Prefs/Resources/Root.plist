@@ -46,6 +46,7 @@
 				<string>Low Power Mode</string>
 				<string>Recent App</string>
 				<string>Orientation Lock</string>
+				<string>Play / Pause Media</string>
 			</array>
 			<key>validValues</key>
 			<array>
@@ -61,6 +62,7 @@
 				<string>lpm</string>
 				<string>recent</string>
 				<string>orientation</string>
+				<string>playback</string>
 			</array>
 		</dict>
 		<dict>
