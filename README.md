@@ -103,10 +103,10 @@ Add a new key (validTitles) and value (validValues) under the *crm_action* entry
 			<string>coversheet</string>
 	    </array>
     </dict>
-It is very important that the *value* entry matches the newly created method name of the *WDFReachabilityController*
-In our case:
-**coversheet**Action
-gets the value 
-**coversheet**
+It is very important that the *value* entry matches the newly created method name of the *WDFReachabilityController*<br>
+In our case:<br>
+**coversheet**Action<br>
+gets the value <br>
+**coversheet**<br><br>
 
 That's it! Now you have succesfully added a new action! Feel free to contribute!
