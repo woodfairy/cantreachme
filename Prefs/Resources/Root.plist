@@ -110,41 +110,51 @@
 			<key>cell</key>
 			<string>PSButtonCell</string>
 			<key>action</key>
-			<string>openLittenTwitter</string>
+			<string>openTwitterWithSpecifier:</string>
 			<key>label</key>
 			<string>@Litteeen for the preference bundle</string>
+			<key>username</key>
+			<string><Litteeen/string>
 		</dict>
 		<dict>
 			<key>cell</key>
 			<string>PSButtonCell</string>
 			<key>action</key>
-			<string>openConstanzeTwitter</string>
+			<string>openTwitterWithSpecifier:</string>
 			<key>label</key>
 			<string>@JulzTDG for some design inspiration</string>
+			<key>username</key>
+			<string>JulzTDG</string>
 		</dict>
 		<dict>
 			<key>cell</key>
 			<string>PSButtonCell</string>
 			<key>action</key>
-			<string>openNepetaTwitter</string>
+			<string>openTwitterWithSpecifier:</string>
 			<key>label</key>
 			<string>@NepetaDev for everything</string>
+			<key>username</key>
+			<string>NepetaDev</string>
 		</dict>
 		<dict>
 			<key>cell</key>
 			<string>PSButtonCell</string>
 			<key>action</key>
-			<string>openTakiTwitter</string>
+			<string>openTwitterWithSpecifier:</string>
 			<key>label</key>
 			<string>@74k1_ for the logo design</string>
+			<key>username</key>
+			<string>74k1_</string>
 		</dict>
 		<dict>
 			<key>cell</key>
 			<string>PSButtonCell</string>
 			<key>action</key>
-			<string>openStrykerTwitter</string>
+			<string>openTwitterWithSpecifier:</string>
 			<key>label</key>
 			<string>@lIx_Stryker_xIl for patiently testing</string>
+			<key>username</key>
+			<string><lIx_Stryker_xIl/string>
 		</dict>
 	</array>
 	<key>title</key>
