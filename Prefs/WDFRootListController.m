@@ -155,7 +155,9 @@
 
 -(void)openTwitterWithSpecifier:(PSSpecifier*)spec {
 	[[UIApplication sharedApplication]
-	openURL: [NSURL URLWithString:[NSString stringWithFormat:@"https://twitter.com/%@", [spec propertyForKey:@"username"]]]]
+	openURL: [NSURL URLWithString:[NSString stringWithFormat:@"https://twitter.com/%@", [spec propertyForKey:@"username"]]
+	options:@{}
+	completionHandler:nil]];
 }
 
 @end
