@@ -1,4 +1,5 @@
 #include "WDFRootListController.h"
+#import <spawn.h>
 
 @implementation WDFRootListController
 
@@ -140,10 +141,9 @@
 }
 
 -(void)respringUtil {
-	NSTask *t = [[NSTask alloc] init];
-    [t setLaunchPath:@"/usr/bin/killall"];
-    [t setArguments:[NSArray arrayWithObjects:@"backboardd", nil]];
-    [t launch];
+	pid_t pid;
+	const char* args[] = {"sbreload", NULL};
+	posix_spawn(&pid, "/usr/bin/sbreload", NULL, NULL, (char* const*)args, NULL);
 }
 
 -(void)openGithub {
@@ -153,46 +153,11 @@
 	completionHandler:nil];
 }
 
--(void)openTwitter {
+-(void)openTwitterWithSpecifier:(PSSpecifier*)spec {
 	[[UIApplication sharedApplication]
-	openURL: [NSURL URLWithString:@"https://twitter.com/woodfairyd"]
-	options: @{}
-	completionHandler:nil];
-}
-
--(void)openLittenTwitter {
-	[[UIApplication sharedApplication]
-	openURL: [NSURL URLWithString:@"https://twitter.com/Litteeen"]
-	options: @{}
-	completionHandler:nil];
-}
-
--(void)openConstanzeTwitter {
-    [[UIApplication sharedApplication]
-	openURL: [NSURL URLWithString:@"https://twitter.com/JulzTDG"]
-	options: @{}
-	completionHandler:nil];
-}
-
--(void)openNepetaTwitter {
-    [[UIApplication sharedApplication]
-	openURL: [NSURL URLWithString:@"https://twitter.com/NepetaDev"]
-	options: @{}
-	completionHandler:nil];
-}
-
--(void)openTakiTwitter {
-    [[UIApplication sharedApplication]
-	openURL: [NSURL URLWithString:@"https://twitter.com/74k1_"]
-	options: @{}
-	completionHandler:nil];
-}
-
--(void)openStrykerTwitter {
-    [[UIApplication sharedApplication]
-	openURL: [NSURL URLWithString:@"hhttps://twitter.com/lIx_Stryker_xIl"]
-	options: @{}
-	completionHandler:nil];
+	openURL: [NSURL URLWithString:[NSString stringWithFormat:@"https://twitter.com/%@", [spec propertyForKey:@"username"]]
+	options:@{}
+	completionHandler:nil]];
 }
 
 @end
