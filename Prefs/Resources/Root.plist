@@ -59,19 +59,19 @@
 			</array>
 			<key>validValues</key>
 			<array>
-				<string>coversheet</string>
-				<string>controlcenter</string>
-				<string>screenshot</string>
-				<string>darkmode</string>
-				<string>airplane</string>
-				<string>fleshlight</string>
-				<string>bluetooth</string>
-				<string>wifi</string>
-				<string>lock</string>
-				<string>lpm</string>
-				<string>recent</string>
-				<string>orientation</string>
-				<string>playback</string>
+				<string>Coversheet</string>
+				<string>ControlCenter</string>
+				<string>Screenshot</string>
+				<string>Darkmode</string>
+				<string>Airplane</string>
+				<string>Fleshlight</string>
+				<string>Bluetooth</string>
+				<string>Wifi</string>
+				<string>Lock</string>
+				<string>LowPower</string>
+				<string>Recent</string>
+				<string>Orientation</string>
+				<string>Playback</string>
 			</array>
 		</dict>
 		<dict>
