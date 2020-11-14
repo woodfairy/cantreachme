@@ -1,6 +1,6 @@
 # CantReachMe
 
-> Custom action for the reachability gesture on jailbroken iOS 13 devices.
+> Custom action for the reachability gesture on jailbroken iOS 13 & 14 devices.
 
 ## Currently supported actions:
  - Notification Center
