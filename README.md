@@ -2,7 +2,7 @@
 
 > Custom action for the reachability gesture on jailbroken iOS 13 & 14 devices.
 
-https://www.idownloadblog.com/2020/07/24/cantreachme/
+https://www.idownloadblog.com/2020/07/24/cantreachme/  
 https://www.youtube.com/watch?v=1cBFa8URHs0
 
 ## Currently supported actions:
